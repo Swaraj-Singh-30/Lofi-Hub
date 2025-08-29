@@ -23,8 +23,8 @@ A simple web-based music player that streams **Lofi music from YouTube** in the 
 
 1. **Clone the repository:**
   ```bash
-  git clone https://github.com/USERNAME/REPO_NAME.git
-  cd REPO_NAME
+  git clone https://github.com/Swaraj-Singh-30/Lofi-Hub.git
+  cd Lofi-Hub
   ```
 2. **Open** `index.html` **in your browser.**
 
