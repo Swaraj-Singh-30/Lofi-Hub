@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Lofi Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+    <!-- Load YouTube API before your script -->
+    <script src="script.js" defer></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+
+<body>
+    <header>
+        <h4>Listening now....</h4>
+        <div class="header-btns">
+            <button>Full Screen</button>
+            <button>Twitter</button>
+            <button>Github</button>
+            <button>Pomodoro</button>
+            <button>Todo List</button>
+            <button>About❤</button>
+        </div>
+    </header>
+
+    <div id="overlay">
+        <h2>Press any key or click to start 🎵</h2>
+    </div>
+
+    <div id="player-wrapper" style="display:none;">
+        <!-- YouTube API will inject the iframe here -->
+        <div id="player"></div>
+    </div>
+</body>
+</html>
