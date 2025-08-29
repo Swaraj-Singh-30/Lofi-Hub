@@ -80,14 +80,7 @@ A simple web-based music player that streams **Lofi music from YouTube** in the 
 
 ---
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
 ## Credits
 
 - Lofi music streams provided by YouTube channels such as [Lofi Girl](https://www.youtube.com/c/LofiGirl)
 - GIFs from [GIPHY](https://giphy.com/) or your own collection
-
