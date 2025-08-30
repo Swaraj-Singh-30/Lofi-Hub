@@ -68,3 +68,52 @@ function onYouTubeIframeAPIReady() {
 // Add event listeners for keydown and click.
 document.addEventListener("keydown", initPlayer, { once: true });
 document.addEventListener("click", initPlayer, { once: true });
+
+//Buttons functionalities
+
+const fullscreenBtn = document.getElementById('fullscreen-btn');
+const fullscreenIcon = document.getElementById('fullscreen-icon');
+
+function toggleFullscreen() {
+    const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+    
+    if (!isFullscreen) {
+        // Enter fullscreen mode
+        const bodyElement = document.documentElement;
+        if (bodyElement.requestFullscreen) {
+            bodyElement.requestFullscreen();
+        } else if (bodyElement.webkitRequestFullscreen) {
+            bodyElement.webkitRequestFullscreen();
+        } else if (bodyElement.mozRequestFullScreen) {
+            bodyElement.mozRequestFullScreen();
+        } else if (bodyElement.msRequestFullscreen) {
+            bodyElement.msRequestFullscreen();
+        }
+        // Change icon to 'windowed' state
+        fullscreenIcon.src = "/assets/windowMode.png";
+        fullscreenIcon.alt = "Exit Fullscreen";
+    } else {
+        // Exit fullscreen mode
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+        // Change icon back to 'fullscreen' state
+        fullscreenIcon.src = "/assets/fullScreen.png";
+        fullscreenIcon.alt = "Fullscreen";
+    }
+}
+
+fullscreenBtn.addEventListener('click', toggleFullscreen);
+function openTwitter(){
+    window.open("https://x.com/__Swaraj", "_blank"); 
+}
+function openGitHub(){
+    window.open("https://github.com/Swaraj-Singh-30/Lofi-Hub", "_blank");
+}
+

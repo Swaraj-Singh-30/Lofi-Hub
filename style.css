@@ -1,7 +1,14 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: "Fira Code", monospace;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 
 #overlay {
@@ -21,22 +28,59 @@
     cursor: pointer;
 }
 
-
-/* .fira-code-customFont {
-  font-family: "Fira Code", monospace;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
-} */
-
-header{
+header {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1.5rem;
+    padding: 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000;
+    /* --- Removed Glassmorphism Effect --- */
+    color: #fff; /* Set text color to white */
 }
 
-.header-btns{
+.header-btns {
     margin-left: auto;
 }
 
+.header-btns button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0; /* Remove padding to avoid extra space around the image */
+    margin: 0 5px; /* Adjust margin as needed */
+}
+
+.header-btns button img {
+    width: 24px;  /* Set the size of your icon */
+    height: 24px;
+}
+
+#player-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#lofi-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+}
+
+#player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
