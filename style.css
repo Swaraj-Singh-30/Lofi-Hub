@@ -169,4 +169,146 @@ header {
     }
 }
 
+/* Container styling */
+#todo-list {
+    display: none;
+    position: fixed;
+    top: 120px;
+    right: 30px;
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    padding: 28px 32px;
+    z-index: 10001;
+    min-width: 250px;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    animation: fadeInTodo 0.3s;
+}
 
+@keyframes fadeInTodo {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* Header */
+#todo-list h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ffb86c;
+    font-size: 1.5rem;
+    text-shadow: 0 1px 6px #000a;
+}
+
+/* Input container */
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Input field */
+#new-task-input {
+    flex: 1;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 8px;
+    background: #282828;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+#new-task-input::placeholder {
+    color: #bbb;
+}
+
+/* Add button */
+#add-task-btn {
+    padding: 8px 12px;
+    background-color: #ffb86c;
+    color: #222;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+#add-task-btn:hover {
+    background-color: #ffd6a0;
+    color: #111;
+}
+
+/* Task list */
+#task-list {
+    list-style: none;
+    padding-left: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Task item */
+#task-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #282828;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Task text */
+#task-list li span {
+    flex: 1;
+    font-size: 16px;
+}
+
+/* Buttons inside li */
+#task-list li button {
+    margin-left: 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.2s, color 0.2s;
+    color: #ffb86c;
+}
+
+#task-list li button:hover {
+    transform: scale(1.2);
+    color: #ffd6a0;
+}
+
+/* Toggle button */
+.toggle-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 8px 14px;
+    background-color: #282828;
+    color: #ffb86c;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.toggle-btn:hover {
+    background-color: #ffb86c;
+    color: #222;
+}
+
+/* Scrollbar styling for tasks */
+#task-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#task-list::-webkit-scrollbar-thumb {
+    background-color: #ffb86c;
+    border-radius: 3px;
+}
+
+#task-list::-webkit-scrollbar-track {
+    background: #282828;
+}

@@ -126,7 +126,7 @@ const pomodoroReset = document.getElementById("pomodoro-reset");
 const pomodoroContinue = document.getElementById("pomodoro-continue");
 const pomodoroStop = document.getElementById("pomodoro-stop");
 const pomodoroOptions = document.getElementById("pomodoro-options");
-const pomodoroAlarm = document.getElementById("pomodoro-alarm"); // new
+const pomodoroAlarm = document.getElementById("pomodoro-alarm"); // Alarm sound element
 
 let pomodoroInterval = null;
 let pomodoroTime = 25 * 60; // 25 minutes in seconds
@@ -254,3 +254,62 @@ function togglePomodoro() {
 pomodoroClock.style.display = "none";
 updatePomodoroDisplay();
 showPomodoroState("idle");
+
+// To-Do List Functionality
+
+const todoList = document.getElementById("todo-list");
+todoList.style.display = "none"
+function toggleTodo(state) {
+  if(todoList.style.display === "none"){
+    todoList.style.display = "block";
+  }
+  else{
+    todoList.style.display = "none"
+  }
+}
+
+function addTask() {
+  const input = document.getElementById("new-task-input");
+  const text = input.value.trim();
+  const maxLength = 50; // limit task length
+
+  if (text === "") {
+    console.log("add something");
+    return;
+  }
+
+  if (text.length > maxLength) {
+    alert(`Task cannot exceed ${maxLength} characters.`);
+    return;
+  }
+
+  const ul = document.getElementById("task-list");
+  const li = document.createElement("li");
+
+  // Task text
+  const span = document.createElement("span");
+  span.textContent = text;
+
+  // Cross/Uncross button
+  const crossBtn = document.createElement("button");
+  crossBtn.textContent = "✔️";
+  crossBtn.onclick = function () {
+    span.style.textDecoration =
+      span.style.textDecoration === "line-through" ? "none" : "line-through";
+  };
+
+  // Delete button
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "🗑️";
+  deleteBtn.onclick = function () {
+    li.remove();
+  };
+
+  // Append everything
+  li.appendChild(span);
+  li.appendChild(crossBtn);
+  li.appendChild(deleteBtn);
+  ul.appendChild(li);
+
+  input.value = "";
+}
