@@ -84,3 +84,89 @@ header {
     height: 100%;
     z-index: 1;
 }
+
+#pomodoro-clock {
+    position: fixed;
+    top: 80px;
+    right: 30px;
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    padding: 28px 32px 22px 32px;
+    z-index: 10001;
+    min-width: 210px;
+    display: none;
+    color: #fff;
+    animation: fadeInPomodoro 0.3s;
+}
+
+@keyframes fadeInPomodoro {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+#pomodoro-timer {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 18px;
+    cursor: pointer;
+    user-select: none;
+    color: #ffb86c;
+    text-shadow: 0 2px 8px #000a;
+    transition: color 0.2s;
+}
+#pomodoro-timer:hover {
+    color: #ffd6a0;
+}
+
+#pomodoro-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#pomodoro-controls button {
+    background: #282828;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 22px;
+    font-size: 1rem;
+    font-family: inherit;
+    margin: 0 4px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 1px 4px #0002;
+}
+
+#pomodoro-controls button:hover {
+    background: #ffb86c;
+    color: #222;
+}
+
+#pomodoro-options {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+    #pomodoro-clock {
+        right: 10px;
+        top: 60px;
+        padding: 16px 10px 12px 10px;
+        min-width: 140px;
+    }
+    #pomodoro-timer {
+        font-size: 1.6rem;
+    }
+    #pomodoro-controls button {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+

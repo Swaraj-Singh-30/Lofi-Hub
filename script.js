@@ -117,3 +117,140 @@ function openGitHub(){
     window.open("https://github.com/Swaraj-Singh-30/Lofi-Hub", "_blank");
 }
 
+// Pomodoro Timer Functionality
+
+const pomodoroClock = document.getElementById("pomodoro-clock");
+const pomodoroTimer = document.getElementById("pomodoro-timer");
+const pomodoroStart = document.getElementById("pomodoro-start");
+const pomodoroReset = document.getElementById("pomodoro-reset");
+const pomodoroContinue = document.getElementById("pomodoro-continue");
+const pomodoroStop = document.getElementById("pomodoro-stop");
+const pomodoroOptions = document.getElementById("pomodoro-options");
+const pomodoroAlarm = document.getElementById("pomodoro-alarm"); // new
+
+let pomodoroInterval = null;
+let pomodoroTime = 25 * 60; // 25 minutes in seconds
+let pomodoroPaused = false;
+let pomodoroRemaining = pomodoroTime;
+
+function updatePomodoroDisplay() {
+    const minutes = String(Math.floor(pomodoroRemaining / 60)).padStart(2, '0');
+    const seconds = String(pomodoroRemaining % 60).padStart(2, '0');
+    pomodoroTimer.textContent = `${minutes}:${seconds}`;
+}
+
+function showPomodoroState(state) {
+    // state: 'idle', 'running', 'paused', 'ended'
+    pomodoroStart.style.display = "none";
+    pomodoroStop.style.display = "none";
+    pomodoroContinue.style.display = "none";
+    pomodoroReset.style.display = "none";
+    pomodoroOptions.style.display = "none";
+
+    if (state === "idle") {
+        pomodoroStart.style.display = "inline-block";
+        pomodoroReset.style.display = "inline-block";
+    } else if (state === "running") {
+        pomodoroStop.style.display = "inline-block";
+    } else if (state === "paused") {
+        pomodoroOptions.style.display = "flex";
+        pomodoroContinue.style.display = "inline-block";
+        pomodoroReset.style.display = "inline-block";
+    } else if (state === "ended") {
+        pomodoroOptions.style.display = "flex";
+        pomodoroContinue.style.display = "none";
+        pomodoroReset.style.display = "inline-block";
+    }
+}
+
+function startPomodoro() {
+    if (pomodoroInterval) return;
+    pomodoroPaused = false;
+    showPomodoroState("running");
+    pomodoroInterval = setInterval(() => {
+        if (pomodoroRemaining > 0) {
+            pomodoroRemaining--;
+            updatePomodoroDisplay();
+        } else {
+            clearInterval(pomodoroInterval);
+            pomodoroInterval = null;
+            pomodoroTimer.textContent = "Time's up!";
+            showPomodoroState("ended");
+            if (pomodoroAlarm) {
+                pomodoroAlarm.currentTime = 0;
+                pomodoroAlarm.play();
+            }
+        }
+    }, 1000);
+}
+
+function pausePomodoro() {
+    if (pomodoroInterval) {
+        clearInterval(pomodoroInterval);
+        pomodoroInterval = null;
+        pomodoroPaused = true;
+        showPomodoroState("paused");
+    }
+}
+
+function resetPomodoro() {
+    clearInterval(pomodoroInterval);
+    pomodoroInterval = null;
+    pomodoroRemaining = pomodoroTime;
+    updatePomodoroDisplay();
+    pomodoroPaused = false;
+    showPomodoroState("idle");
+}
+
+function continuePomodoro() {
+    if (!pomodoroInterval && pomodoroPaused) {
+        pomodoroPaused = false;
+        showPomodoroState("running");
+        pomodoroInterval = setInterval(() => {
+            if (pomodoroRemaining > 0) {
+                pomodoroRemaining--;
+                updatePomodoroDisplay();
+            } else {
+                clearInterval(pomodoroInterval);
+                pomodoroInterval = null;
+                pomodoroTimer.textContent = "Time's up!";
+                showPomodoroState("ended");
+                if (pomodoroAlarm) {
+                    pomodoroAlarm.currentTime = 0;
+                    pomodoroAlarm.play();
+                }
+            }
+        }, 1000);
+    }
+}
+
+function stopPomodoro() {
+    if (pomodoroInterval) {
+        clearInterval(pomodoroInterval);
+        pomodoroInterval = null;
+        pomodoroPaused = true;
+        showPomodoroState("paused");
+    }
+}
+
+// Button event listeners
+pomodoroStart.addEventListener("click", startPomodoro);
+pomodoroReset.addEventListener("click", resetPomodoro);
+pomodoroTimer.addEventListener("click", pausePomodoro);
+pomodoroContinue.addEventListener("click", continuePomodoro);
+pomodoroStop.addEventListener("click", stopPomodoro);
+
+// Toggle Pomodoro Clock visibility (does NOT pause timer)
+function togglePomodoro() {
+    if (pomodoroClock.style.display === "none" || pomodoroClock.style.display === "") {
+        pomodoroClock.style.display = "block";
+    } else {
+        pomodoroClock.style.display = "none";
+        // Do NOT pausePomodoro here!
+    }
+}
+
+// Initialize Pomodoro clock hidden and timer display
+pomodoroClock.style.display = "none";
+updatePomodoroDisplay();
+showPomodoroState("idle");

@@ -27,19 +27,37 @@
             <button onclick="openGitHub()">
                 <img id="GitHub-icon" src="/assets/GitHubLogo.png" alt="Fullscreen Icon">
             </button>
-            <button>Pomodoro</button>
-            <button>Todo List</button>
-            <button>About❤</button>
+            <button onclick="togglePomodoro()">
+                <img src="/assets/clockLogo.png" alt="Clock Icon">
+            </button>
+            <button>
+                <img src="/assets/todoLogo.png" alt="To-Do Icon">
+            </button>
+            <button>❤</button>
         </div>
     </header>
-
     <div id="overlay">
         <h2>Press any key or click to start 🎵</h2>
     </div>
-
+    
     <div id="player-wrapper" style="display:none;">
-        <img id="lofi-gif" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm4yb2VrYTR1bndzZXptMTFpYnoyYndyMmQwdmhnNzBpaGpkY2M5ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/h58dtf5vTpjulO4M5o/giphy.gif" alt="Lofi GIF">
-                <div id="player"></div>
+        <img id="lofi-gif"
+            src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm4yb2VrYTR1bndzZXptMTFpYnoyYndyMmQwdmhnNzBpaGpkY2M5ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/h58dtf5vTpjulO4M5o/giphy.gif"
+            alt="Lofi GIF">
+        <div id="player"></div>
     </div>
+
+    <div id="pomodoro-clock">
+        <div id="pomodoro-timer">25:00</div>
+        <div id="pomodoro-controls">
+            <button id="pomodoro-start">Start</button>
+            <button id="pomodoro-reset">Reset</button>
+            <div id="pomodoro-options" style="display: none;">
+                <button id="pomodoro-continue">Continue</button>
+                <button id="pomodoro-stop">Stop</button>
+            </div>
+        </div>
+    </div>
+    <audio id="pomodoro-alarm" src="assets/alarm.mp3" preload="auto"></audio>
 </body>
 </html>
