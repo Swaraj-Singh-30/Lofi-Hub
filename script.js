@@ -118,7 +118,6 @@ function openGitHub(){
 }
 
 // Pomodoro Timer Functionality
-
 const pomodoroClock = document.getElementById("pomodoro-clock");
 const pomodoroTimer = document.getElementById("pomodoro-timer");
 const pomodoroStart = document.getElementById("pomodoro-start");
@@ -244,6 +243,7 @@ pomodoroStop.addEventListener("click", stopPomodoro);
 function togglePomodoro() {
     if (pomodoroClock.style.display === "none" || pomodoroClock.style.display === "") {
         pomodoroClock.style.display = "block";
+        todoList.style.display = "none"; // Hide todo list when showing pomodoro
     } else {
         pomodoroClock.style.display = "none";
         // Do NOT pausePomodoro here!
@@ -260,8 +260,9 @@ showPomodoroState("idle");
 const todoList = document.getElementById("todo-list");
 todoList.style.display = "none"
 function toggleTodo(state) {
-  if(todoList.style.display === "none"){
+  if(todoList.style.display === "none" || todoList.style.display === ""){
     todoList.style.display = "block";
+    pomodoroClock.style.display = "none"; // Hide pomodoro when showing todo list
   }
   else{
     todoList.style.display = "none"

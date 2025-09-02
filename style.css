@@ -217,6 +217,7 @@ header {
     color: #fff;
     font-size: 16px;
     outline: none;
+    margin-bottom: 10px;
 }
 
 #new-task-input::placeholder {
