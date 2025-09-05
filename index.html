@@ -39,7 +39,7 @@
     <div id="overlay">
         <h2>Press any key or click to start 🎵</h2>
     </div>
-    
+
     <div id="player-wrapper" style="display:none;">
         <img id="lofi-gif"
             src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm4yb2VrYTR1bndzZXptMTFpYnoyYndyMmQwdmhnNzBpaGpkY2M5ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/h58dtf5vTpjulO4M5o/giphy.gif"
@@ -65,10 +65,15 @@
         <input type="text" id="new-task-input" placeholder="Add a new task...">
         <button id="add-task-btn" onclick="addTask()">Add</button>
         <ul id="task-list"></ul>
-    </div>  
+    </div>
 
     <button onclick="togglePlay()" id="play-pause-btn">
         <img id="pause-btn" src="/assets/pause.png" alt="Pause Icon">
     </button>
+
+    <div class="volume-control">
+        <input type="range" id="volume-slider" min="0" max="100" step="1" value="50">
+    </div>
 </body>
+
 </html>

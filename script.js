@@ -333,9 +333,10 @@ document.addEventListener("keydown", function (e) {
     }
 });
 
+// Play Pause Functionality
 let playerState = "playing";
 const playerImg = document.getElementById("pause-btn");
-// Play Pause Functionality
+
 function togglePlay() {
     if(playerState !== "paused"){
     player.pauseVideo();
@@ -349,4 +350,38 @@ function togglePlay() {
     playerImg.src = "/assets/pause.png";
     playerImg.alt = "Pause Icon";
     }
+}
+
+
+// Volume Control
+const volumeSlider = document.getElementById("volume-slider");
+
+// Set initial volume when player is ready
+function setInitialVolume() {
+    if (player && typeof player.setVolume === "function") {
+        player.setVolume(volumeSlider.value);
+    }
+}
+
+// Update player volume when slider changes
+volumeSlider.addEventListener("input", () => {
+    if (player && typeof player.setVolume === "function") {
+        player.setVolume(volumeSlider.value);
+    }
+});
+
+// Ensure initial volume is set when player is ready
+function onYouTubePlayerReady() {
+    setInitialVolume();
+}
+
+// If player is already ready, set volume
+if (isPlayerReady) {
+    setInitialVolume();
+}
+
+// If you want to set volume when player is ready, add this to the player creation:
+if (typeof YT !== 'undefined' && YT.Player) {
+    createPlayer();
+    setTimeout(setInitialVolume, 1000); // fallback in case onReady is async
 }
