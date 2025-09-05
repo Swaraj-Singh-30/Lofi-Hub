@@ -313,3 +313,62 @@ header {
 #task-list::-webkit-scrollbar-track {
     background: #282828;
 }
+
+/* Play/Pause Button */
+#play-pause-btn { 
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 18px;
+    z-index: 10001;
+    cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#play-pause-btn:hover {
+    background: none;
+    box-shadow: none;
+    transform: scale(1.08);
+}
+
+#play-pause-btn img {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 2px 6px #0008);
+    transition: filter 0.2s;
+    display: block;
+}
+
+#play-pause-btn:hover img {
+    filter: drop-shadow(0 2px 12px #ffb86c88);
+}
+
+@media (max-width: 900px) {
+    #play-pause-btn {
+        bottom: 20px;
+        left: 20px;
+        padding: 14px;
+    }
+    #play-pause-btn img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 600px) {
+    #play-pause-btn {
+        bottom: 12px;
+        left: 12px;
+        padding: 10px;
+    }
+    #play-pause-btn img {
+        width: 20px;
+        height: 20px;
+    }
+}
