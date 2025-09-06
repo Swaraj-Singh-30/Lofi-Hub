@@ -380,8 +380,52 @@ if (isPlayerReady) {
     setInitialVolume();
 }
 
-// If you want to set volume when player is ready, add this to the player creation:
 if (typeof YT !== 'undefined' && YT.Player) {
     createPlayer();
     setTimeout(setInitialVolume, 1000); // fallback in case onReady is async
+}
+
+
+// Mute/Unmute Functionality
+let isMuted = false;
+const volumeIcon = document.getElementById("volume-icon");
+
+function toggleMute() {
+    if(!isMuted){
+        player.mute();
+        isMuted = true;
+        volumeIcon.src = "/assets/muteIcon.png";
+        volumeIcon.alt = "Muted Icon";
+        volumeSlider.value = 0;
+    } else{
+        player.unMute();
+        isMuted = false;
+        volumeIcon.src = "/assets/volumeIcon.png";
+        volumeIcon.alt = "Volume Icon";
+        volumeSlider.value = 50;
+    }
+}
+
+// Update mute icon and state whenever the slider changes
+volumeSlider.addEventListener("input", () => {
+    if (volumeSlider.value == 0) {
+        isMuted = true;
+        volumeIcon.src = "/assets/muteIcon.png";
+        volumeIcon.alt = "Muted Icon";
+    } else {
+        isMuted = false;
+        volumeIcon.src = "/assets/volumeIcon.png";
+        volumeIcon.alt = "Volume Icon";
+    }
+});
+
+// Set the correct icon on load based on slider value
+if (volumeSlider.value == 0) {
+    isMuted = true;
+    volumeIcon.src = "/assets/muteIcon.png";
+    volumeIcon.alt = "Muted Icon";
+} else {
+    isMuted = false;
+    volumeIcon.src = "/assets/volumeIcon.png";
+    volumeIcon.alt = "Volume Icon";
 }
