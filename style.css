@@ -555,3 +555,66 @@ header {
         height: 16px;
     }
 }
+/* Shuffle Button Styling */
+#shuffle-btn {
+    position: fixed;
+    bottom: 41px;
+    left: 260px;
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 10px;
+    z-index: 9998;
+    cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#shuffle-btn img {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 2px 6px #0008);
+    transition: filter 0.2s;
+    display: block;
+}
+
+#shuffle-btn:hover {
+    background: none;
+    box-shadow: none;
+    transform: scale(1.08);
+}
+
+#shuffle-btn:hover img {
+    filter: drop-shadow(0 2px 12px #ffb86c88);
+}
+
+/* Responsive Shuffle Button */
+@media (max-width: 1200px) {
+    #shuffle-btn {
+        left: 200px;
+    }
+}
+@media (max-width: 900px) {
+    #shuffle-btn {
+        bottom: 20px;
+        left: 120px;
+        padding: 8px;
+    }
+    #shuffle-btn img {
+        width: 20px;
+        height: 20px;
+    }
+}
+@media (max-width: 600px) {
+    #shuffle-btn {
+        bottom: 12px;
+        left: 90px;
+        padding: 6px;
+    }
+    #shuffle-btn img {
+        width: 16px;
+        height: 16px;
+    }
+}

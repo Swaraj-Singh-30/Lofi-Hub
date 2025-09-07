@@ -10,8 +10,8 @@ function createPlayer() {
         return;
     }
     player = new YT.Player("player", {
-        height: "100%",
-        width: "100%",
+        height: "20%",
+        width: "20%",
         videoId: "5yx6BWlEVcY",
         playerVars: {
             autoplay: 0,
@@ -428,4 +428,16 @@ if (volumeSlider.value == 0) {
     isMuted = false;
     volumeIcon.src = "/assets/volumeIcon.png";
     volumeIcon.alt = "Volume Icon";
+}
+
+const myTrackIds = ["4xDzrJKXOOY", "HuFYqnbVbzY", "UI5NKkW8acM", "yf5NOyy1SXU", "Gm4YmrKKHA8", "5yx6BWlEVcY"];
+
+function shuffleTrack(){
+    var shuffleIndex = Math.floor(Math.random() * myTrackIds.length);
+    player.loadVideoById(myTrackIds[shuffleIndex]);
+    currentGifIndex = Math.floor(Math.random() * gifUrls.length);
+    const gifImg = document.getElementById("lofi-gif");
+    if (gifImg) {
+        gifImg.src = gifUrls[currentGifIndex];
+    }
 }
