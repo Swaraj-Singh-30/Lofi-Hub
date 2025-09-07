@@ -432,12 +432,47 @@ if (volumeSlider.value == 0) {
 
 const myTrackIds = ["4xDzrJKXOOY", "HuFYqnbVbzY", "UI5NKkW8acM", "yf5NOyy1SXU", "Gm4YmrKKHA8", "5yx6BWlEVcY"];
 
-function shuffleTrack(){
-    var shuffleIndex = Math.floor(Math.random() * myTrackIds.length);
-    player.loadVideoById(myTrackIds[shuffleIndex]);
-    currentGifIndex = Math.floor(Math.random() * gifUrls.length);
+let currentTrackIndex = 0;
+
+function shuffleTrack() {
+    currentTrackIndex = (currentTrackIndex + 1) % myTrackIds.length;
+    player.loadVideoById(myTrackIds[currentTrackIndex]);
+    currentGifIndex = (currentGifIndex + 1) % gifUrls.length;
     const gifImg = document.getElementById("lofi-gif");
     if (gifImg) {
         gifImg.src = gifUrls[currentGifIndex];
     }
+}
+
+// Video title updating 
+
+function updatePlayerTitle() {
+    var playerTitle = document.getElementById("player-title");
+    if (player && typeof player.getVideoData === "function") {
+        var videoTitle = player.getVideoData().title;
+        if (playerTitle) {
+            playerTitle.innerText = videoTitle || "Now Playing";
+        }
+    }
+}
+
+// Update title when player is ready and when video changes
+if (player) {
+    player.addEventListener && player.addEventListener("onStateChange", updatePlayerTitle);
+}
+if (typeof YT !== 'undefined' && YT.Player) {
+    // Attach to YouTube API events
+    window.onPlayerStateChange = function() {
+        updatePlayerTitle();
+    };
+}
+
+// Call after loading a new video
+function onTrackChange() {
+    updatePlayerTitle();
+}
+
+// Call once on load (after player is ready)
+if (isPlayerReady) {
+    updatePlayerTitle();
 }
