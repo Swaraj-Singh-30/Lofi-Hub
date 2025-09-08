@@ -56,15 +56,19 @@ A simple web-based music player that streams **Lofi music from YouTube** in the 
 - [x] Play Lofi music from YouTube
 - [x] GIF animation in the foreground
 - [x] Autoplay works seamlessly across browsers
-- [ ] Mute/unmute after user interaction
-- [ ] Customizable GIF selection
+- [x] Mute/unmute after user interaction
+- [x] Customizable GIF selection
 
 ### Improvements
 
-- [ ] Add volume control
-- [ ] Add play/pause button for music
-- [ ] Support multiple GIFs
+- [x] Add volume control
+- [x] Add play/pause button for music
+- [x] Support multiple GIFs
+- [x] Add shuffle functionality 
 - [ ] Mobile responsiveness
+- [ ] Add features for mobile view
+- [ ] work on stability of the music and gif
+- [ ] Imporve the UI
 
 ### Deployment
 
