@@ -671,3 +671,81 @@ header {
 button styling  
 -Add About section with info about the project and shortcuts for website
 */
+
+/* About popup styling */
+#about-popup {
+    display: none;
+    position: fixed;
+    top: 62px;
+    right: 18px;
+    background: rgba(30,30,30,0.98);
+    color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px #0005;
+    padding: 16px 18px 10px 18px;
+    min-width: 180px;
+    max-width: 240px;
+    font-size: 1rem;
+    z-index: 10010;
+    animation: fadeInPomodoro 0.3s;
+}
+
+@keyframes fadeInAbout {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+#about-popup .popup-content {
+    padding: 0;
+}
+#about-popup h2 {
+    margin: 0 0 6px 0;
+    color: #ffb86c;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    text-align: left;
+}
+#about-popup p, #about-popup ul {
+    margin: 0 0 6px 0;
+    font-size: 0.97em;
+}
+#about-popup ul {
+    padding-left: 18px;
+}
+#about-popup li {
+    margin-bottom: 2px;
+}
+#about-popup a {
+    color: #ffb86c;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+#about-popup a:hover {
+    color: #ffd6a0;
+}
+@media (max-width: 900px) {
+    #about-popup {
+        top: 54px;
+        right: 8px;
+        min-width: 130px;
+        max-width: 170px;
+        font-size: 0.92rem;
+        padding: 10px 8px 6px 8px;
+    }
+    #about-popup h2 {
+        font-size: 1em;
+    }
+}
+@media (max-width: 600px) {
+    #about-popup {
+        top: 4px;
+        right: 2px;
+        padding: 7px 4px 4px 4px;
+        min-width: 90px;
+        max-width: 120px;
+        font-size: 0.78rem;
+    }
+    #about-popup h2 {
+        font-size: 1em;
+    }
+}

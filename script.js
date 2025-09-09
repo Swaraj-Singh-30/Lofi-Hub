@@ -476,3 +476,17 @@ function onTrackChange() {
 if (isPlayerReady) {
     updatePlayerTitle();
 }
+
+// About Popup Functionality
+var isAboutPopOpen = false;
+function openAbout(){
+    const aboutPopup = document.getElementById("about-popup");
+    if (!isAboutPopOpen) {
+        aboutPopup.style.display = "block";
+        isAboutPopOpen = true;
+    } else {
+        aboutPopup.style.display = "none";
+        isAboutPopOpen = false;
+    }
+}
+

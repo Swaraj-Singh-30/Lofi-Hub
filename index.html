@@ -33,8 +33,31 @@
             <button onclick="toggleTodo()">
                 <img src="/assets/todoLogo.png" alt="To-Do Icon">
             </button>
-            <button>❤</button>
-        </div>
+            <button onclick="openAbout()">
+                <img src="/assets/heart.png" alt="Heart Icon">
+            </button>
+            <div id="about-popup" class="popup" style="display:none;">
+                <div class="popup-content">
+                    <h2>About Lofi Hub</h2>
+                    <p>Lofi Hub is a web application that combines a YouTube music player with a Pomodoro timer and a to-do list to help you stay focused and productive.</p>
+                    <p style="margin-bottom:4px;">Features:</p>
+                    <ul style="margin-bottom:4px;">
+                        <li>Play relaxing lofi music from YouTube</li>
+                        <li>Pomodoro timer to manage work and break intervals</li>
+                        <li>To-do list to keep track of tasks</li>
+                    </ul>
+                    <p style="margin-bottom:4px;">Shortcuts:</p>
+                    <ul style="margin-bottom:4px;">
+                        <li><b>G</b>: Shuffle GIF</li>
+                        <li><b>Space/Click</b>: Start music</li>
+                        <li><b>Play/Pause</b>: Toggle music</li>
+                        <li><b>Clock</b>: Pomodoro timer</li>
+                        <li><b>Todo</b>: Show/hide todo list</li>
+                        <li><b>Volume/Mute</b>: Adjust/mute sound</li>
+                    </ul>
+                    <p style="font-size:0.85em;margin:0;">By <a href="https://github.com/Swaraj-Singh-30/Lofi-Hub" target="_blank" style="color:#ffb86c;">Swaraj Singh</a></p>
+                </div>
+            </div>
     </header>
     <div id="overlay">
         <h2>Press any key or click to start 🎵</h2>
