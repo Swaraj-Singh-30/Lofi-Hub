@@ -1,3 +1,19 @@
+// Hamburger menu toggle for mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburger-menu');
+    const headerBtns = document.getElementById('header-btns');
+    if (hamburger && headerBtns) {
+        hamburger.addEventListener('click', function() {
+            headerBtns.classList.toggle('active');
+        });
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 600 && !headerBtns.contains(e.target) && !hamburger.contains(e.target)) {
+                headerBtns.classList.remove('active');
+            }
+        });
+    }
+});
 let player;
 let isPlayerReady = false;
 let userHasInteracted = false;
@@ -22,10 +38,15 @@ function createPlayer() {
             enablejsapi: 1
         },
         events: {
-            onReady: () => {
+            onReady: function(event) {
                 console.log("YouTube player ready ✅");
                 isPlayerReady = true;
                 tryStartPlayer();
+                updatePlayerTitle();
+                // Listen for state changes to update title
+                event.target.addEventListener('onStateChange', function() {
+                    updatePlayerTitle();
+                });
             }
         }
     });
@@ -241,12 +262,13 @@ pomodoroStop.addEventListener("click", stopPomodoro);
 
 // Toggle Pomodoro Clock visibility (does NOT pause timer)
 function togglePomodoro() {
+    const aboutPopup = document.getElementById("about-popup");
     if (pomodoroClock.style.display === "none" || pomodoroClock.style.display === "") {
         pomodoroClock.style.display = "block";
-        todoList.style.display = "none"; // Hide todo list when showing pomodoro
+        todoList.style.display = "none";
+        if (aboutPopup) aboutPopup.style.display = "none";
     } else {
         pomodoroClock.style.display = "none";
-        // Do NOT pausePomodoro here!
     }
 }
 
@@ -259,14 +281,15 @@ showPomodoroState("idle");
 
 const todoList = document.getElementById("todo-list");
 todoList.style.display = "none"
-function toggleTodo(state) {
-  if(todoList.style.display === "none" || todoList.style.display === ""){
-    todoList.style.display = "block";
-    pomodoroClock.style.display = "none"; // Hide pomodoro when showing todo list
-  }
-  else{
-    todoList.style.display = "none"
-  }
+function toggleTodo() {
+    const aboutPopup = document.getElementById("about-popup");
+    if (todoList.style.display === "none" || todoList.style.display === "") {
+        todoList.style.display = "block";
+        pomodoroClock.style.display = "none";
+        if (aboutPopup) aboutPopup.style.display = "none";
+    } else {
+        todoList.style.display = "none";
+    }
 }
 
 function addTask() {
@@ -456,16 +479,7 @@ function updatePlayerTitle() {
     }
 }
 
-// Update title when player is ready and when video changes
-if (player) {
-    player.addEventListener && player.addEventListener("onStateChange", updatePlayerTitle);
-}
-if (typeof YT !== 'undefined' && YT.Player) {
-    // Attach to YouTube API events
-    window.onPlayerStateChange = function() {
-        updatePlayerTitle();
-    };
-}
+// Remove old event wiring for player title (now handled in onReady)
 
 // Call after loading a new video
 function onTrackChange() {
@@ -481,9 +495,13 @@ if (isPlayerReady) {
 var isAboutPopOpen = false;
 function openAbout(){
     const aboutPopup = document.getElementById("about-popup");
+    const pomodoroClock = document.getElementById("pomodoro-clock");
+    const todoList = document.getElementById("todo-list");
     if (!isAboutPopOpen) {
         aboutPopup.style.display = "block";
         isAboutPopOpen = true;
+        if (pomodoroClock) pomodoroClock.style.display = "none";
+        if (todoList) todoList.style.display = "none";
     } else {
         aboutPopup.style.display = "none";
         isAboutPopOpen = false;
