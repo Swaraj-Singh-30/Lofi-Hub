@@ -720,12 +720,32 @@ header {
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     z-index: 9998;
     max-width: 60vw;
-    text-align: left;
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-    transition: left 0.2s, bottom 0.2s, font-size 0.2s, max-width 0.2s;
+    white-space: nowrap;
 }
+
+/* container holding multiple spans */
+#player-title .marquee {
+    display: inline-flex;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee 12s linear infinite;
+}
+
+#player-title span {
+    padding-right: 3rem;
+}
+
+/* keyframes: shift only 25% of full strip before looping */
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-25%);
+    }
+}
+
 
 @media (max-width: 1200px) {
     #player-title {

@@ -339,7 +339,7 @@ function addTask() {
 }
 
 // Gift functionality
-const gifUrls = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RMwgs5kZqkRyhF24KK/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dHZsdDNtbjg5YWhoem01bXh1OW5xcWdheG9ieDNsd25vYXVjYnhnZSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/7F2HFcT5Ww7C5rRjso/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif", "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDBzNmFxcHVqNHhxZmI4bjlibmhyYWplZ2NuNDFsMTR0dzAzbmtqMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZCSZp478OpzSMpAAFc/giphy.gif", ""];
+const gifUrls = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RMwgs5kZqkRyhF24KK/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dHZsdDNtbjg5YWhoem01bXh1OW5xcWdheG9ieDNsd25vYXVjYnhnZSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/7F2HFcT5Ww7C5rRjso/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif", "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDBzNmFxcHVqNHhxZmI4bjlibmhyYWplZ2NuNDFsMTR0dzAzbmtqMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZCSZp478OpzSMpAAFc/giphy.gif"];
 
 let currentGifIndex = 0;
 function showRandomGif() {
@@ -468,16 +468,18 @@ function shuffleTrack() {
 }
 
 // Video title updating 
-
 function updatePlayerTitle() {
     var playerTitle = document.getElementById("player-title");
     if (player && typeof player.getVideoData === "function") {
-        var videoTitle = player.getVideoData().title;
+        var videoTitle = player.getVideoData().title || "Now Playing";
         if (playerTitle) {
-            playerTitle.innerText = videoTitle || "Now Playing";
+            const spans = playerTitle.querySelectorAll("span");
+            spans.forEach(span => span.innerText = videoTitle);
         }
     }
 }
+
+
 
 // Remove old event wiring for player title (now handled in onReady)
 
@@ -507,4 +509,5 @@ function openAbout(){
         isAboutPopOpen = false;
     }
 }
+
 
