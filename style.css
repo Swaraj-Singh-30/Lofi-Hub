@@ -156,7 +156,7 @@ header {
     border: none;
     cursor: pointer;
     padding: 0; /* Remove padding to avoid extra space around the image */
-    margin: 0 5px; /* Adjust margin as needed */
+    margin: 2vh 5px; /* Adjust margin as needed */
 }
 
 .header-btns button img {
@@ -468,10 +468,10 @@ header {
 
 @media (max-width: 600px) {
     #play-pause-btn {
-        bottom: 8px;
-        left: 3px;
-        padding: 6px;
-        transform: scale(0.75);
+       bottom: 2vh;
+       left: 4vw;
+       padding: 6px;
+       transform: scale(0.75);
     }
     #play-pause-btn img {
         width: 16px;
@@ -598,7 +598,7 @@ header {
         height: 5px;
     }
 }
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     .volume-control {
         display: none;
     }
@@ -641,7 +641,7 @@ header {
         height: 20px;
     }
 }
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     #mute-btn {
         bottom: 12px;
         left: 36px;
@@ -689,13 +689,13 @@ header {
 /* Responsive Shuffle Button */
 @media (max-width: 1200px) {
     #shuffle-btn {
-        left: 200px;
+        left: 26vw;
     }
 }
 @media (max-width: 900px) {
     #shuffle-btn {
-        bottom: 20px;
-        left: 120px;
+        bottom: 5vh;
+        left: 12vw;
         padding: 8px;
     }
     #shuffle-btn img {
@@ -705,8 +705,8 @@ header {
 }
 @media (max-width: 600px) {
     #shuffle-btn {
-        bottom: 10px;
-        left: 40px;
+        bottom: 2.2vh;
+        left: 14vw;
         padding: 6px;
     }
     #shuffle-btn img {
@@ -718,8 +718,8 @@ header {
 /* Player Title Styling */
 #player-title {
     position: fixed;
-    bottom: 43px;
-    left: 320px;
+    left: 39vw;
+    bottom: 4vh;
     color: #fff;
     font-size: 1.1rem;
     background: rgba(0, 0, 0, 0.5);
@@ -757,15 +757,16 @@ header {
 
 @media (max-width: 1200px) {
     #player-title {
-        left: 200px;
+        left: 48vw;
         font-size: 1rem;
         max-width: 50vw;
+        bottom: 7vh;
     }
 }
 @media (max-width: 900px) {
     #player-title {
-        left: 140px;
-        bottom: 8px;
+        left: 50vw;
+        bottom: 3vh;
         font-size: 0.95rem;
         max-width: 45vw;
     }
