@@ -479,10 +479,6 @@ function updatePlayerTitle() {
     }
 }
 
-
-
-// Remove old event wiring for player title (now handled in onReady)
-
 // Call after loading a new video
 function onTrackChange() {
     updatePlayerTitle();
