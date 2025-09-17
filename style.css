@@ -800,8 +800,8 @@ button styling
 #about-popup {
     display: none;
     position: fixed;
-    top: 62px;
-    right: 18px;
+    top: 10vh;
+    right: 1vw;
     background: rgba(30,30,30,0.98);
     color: #fff;
     border-radius: 14px;

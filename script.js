@@ -339,7 +339,9 @@ function addTask() {
 }
 
 // Gift functionality
-const gifUrls = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RMwgs5kZqkRyhF24KK/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dHZsdDNtbjg5YWhoem01bXh1OW5xcWdheG9ieDNsd25vYXVjYnhnZSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/7F2HFcT5Ww7C5rRjso/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif", "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDBzNmFxcHVqNHhxZmI4bjlibmhyYWplZ2NuNDFsMTR0dzAzbmtqMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZCSZp478OpzSMpAAFc/giphy.gif"];
+const gifUrls = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif","https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif", "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDBzNmFxcHVqNHhxZmI4bjlibmhyYWplZ2NuNDFsMTR0dzAzbmtqMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZCSZp478OpzSMpAAFc/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExand0ZzVkaXV2ajQ3a3ZjemM4NGdrYWF1M3R6aXA4YW1xMHhvcm80YiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BbmDhO2gx3o96CpVM1/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHA0emw4aWtub3Qwb3RsMWo0aDl0djF2cWowOGQ2NnA5Z2gyZWdwbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/dvreHY4p06lzVSDrvj/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bG1nbTZ2YmpzbHlsMXdteHU4dTRlZnB0YWZ0cTFrM2Rvc3VvcHZuayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RgZFvGuI4OxLjuSvRF/giphy.gif"];
+
+// const gifUrlsMobile = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/k8kITi9SAwe9JWbUaH/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/H62NM1ab7wzMXURdoi/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/c2CDTcHLscXaU5s1vK/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eHd5eHY3c3N2dnA2Nm9td2lob29iNGt3NjEyZDZlc3Z6NXA5dDM0OCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/QxSveBdhdtLgagcKdR/giphy.gif", "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ21zcGJreDN5bmFrcDUzMmszOWZxdmk5Y3h0OWx4YmNqMGoxd2pjYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WTiJwq5cEY1gsRHJt9/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif", ""];
 
 let currentGifIndex = 0;
 function showRandomGif() {
@@ -453,6 +455,29 @@ if (volumeSlider.value == 0) {
     volumeIcon.alt = "Volume Icon";
 }
 
+//Preserving the default state of volume slider and icon
+
+if (volumeSlider) {
+  // Set the slider value to a default (e.g., 50)
+  volumeSlider.value = 50;
+  
+  // Set the volume of the player to match the new slider value
+  if (player && typeof player.setVolume === "function") {
+    player.setVolume(volumeSlider.value);
+  }
+
+  // Ensure the player is unmuted
+  if (player && typeof player.unMute === "function") {
+    player.unMute();
+  }
+
+  // Set the icon to the unmuted state
+  volumeIcon.src = "/assets/volumeIcon.png";
+  volumeIcon.alt = "Volume Icon";
+  isMuted = false;
+}
+
+// Live YT lofi tracks IDs
 const myTrackIds = ["4xDzrJKXOOY", "HuFYqnbVbzY", "UI5NKkW8acM", "yf5NOyy1SXU", "Gm4YmrKKHA8", "5yx6BWlEVcY"];
 
 let currentTrackIndex = 0;
