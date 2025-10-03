@@ -365,14 +365,8 @@ function showRandomGif() {
 // Run on page load
 window.addEventListener("load", showRandomGif);
 
-// Optional: change GIF if window is resized
-window.addEventListener("resize", showRandomGif);
-
-document.addEventListener("keydown", function (e) {
-    if (e.key.toLowerCase() === "g") {
-        showRandomGif();
-    }
-});
+// // Optional: change GIF if window is resized
+// window.addEventListener("resize", showRandomGif);
 
 // Play Pause Functionality
 let playerState = "playing";
@@ -547,4 +541,24 @@ function openAbout(){
     }
 }
 
+// Shortcut keys functionality
+//Changing GIF
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "g") {
+        showRandomGif();
+    }
+});
 
+//Play/Pause
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === " ") {
+            togglePlay();
+    }
+});
+
+//Shuffle Track
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "s") {
+        shuffleTrack();
+    }
+});
