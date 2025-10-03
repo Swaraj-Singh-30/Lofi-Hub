@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Lofi Hub</title>
 
+    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -17,41 +18,41 @@
     <meta name="msapplication-config" content="assets/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <meta name="description"
-        content="A website dedicated to providing chill music for working and studying. Just open your browser and enjoy the vibe.">
-
+    <!-- Description -->
     <meta name="description"
         content="Welcome to the Lofi Hub! Stream infinite, non-stop lofi beats for studying, focus, and relaxation. The best chill music radio 24/7.">
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
-    <!-- Load YouTube API before your script -->
+
+    <!-- Scripts -->
     <script src="script.js" defer></script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 
 <body>
     <header>
-        <h1 id="top-title">Lofi hub</h1>
+        <h1 id="top-title">Lofi Hub</h1>
         <div class="header-btns" id="header-btns">
             <button id="fullscreen-btn" onclick="openFullscreen()">
-                <img id="fullscreen-icon" src="/assets/fullScreen.png" alt="Fullscreen Icon">
+                <img id="fullscreen-icon" src="assets/fullScreen.png" alt="Fullscreen Icon">
             </button>
             <button onclick="openTwitter()">
-                <img id="twitter-icon" src="/assets/twitterLogo.png" alt="Fullscreen Icon">
+                <img id="twitter-icon" src="assets/twitterLogo.png" alt="Twitter Icon">
             </button>
             <button onclick="openGitHub()">
-                <img id="GitHub-icon" src="/assets/GitHubLogo.png" alt="Fullscreen Icon">
+                <img id="GitHub-icon" src="assets/GitHubLogo.png" alt="GitHub Icon">
             </button>
             <button onclick="togglePomodoro()">
-                <img src="/assets/clockLogo.png" alt="Clock Icon">
+                <img src="assets/clockLogo.png" alt="Clock Icon">
             </button>
             <button onclick="toggleTodo()">
-                <img src="/assets/todoLogo.png" alt="To-Do Icon">
+                <img src="assets/todoLogo.png" alt="To-Do Icon">
             </button>
             <button onclick="openAbout()" class="about-desktop">
-                <img src="/assets/heart.png" alt="Heart Icon">
+                <img src="assets/heart.png" alt="Heart Icon">
             </button>
         </div>
         <button id="hamburger-menu" aria-label="Menu">
@@ -84,6 +85,7 @@
             </div>
         </div>
     </header>
+
     <div id="overlay">
         <h2>Press any key or click to start 🎵</h2>
     </div>
@@ -100,8 +102,6 @@
                 <span></span>
             </div>
         </h3>
-
-
     </div>
 
     <div id="pomodoro-clock">
@@ -125,17 +125,17 @@
     </div>
 
     <button onclick="togglePlay()" id="play-pause-btn">
-        <img id="pause-btn" src="/assets/pause.png" alt="Pause Icon">
+        <img id="pause-btn" src="assets/pause.png" alt="Pause Icon">
     </button>
 
     <div class="volume-control">
         <input type="range" id="volume-slider" min="0" max="100" step="1" value="50">
     </div>
-    <button onclick="toggleMute()" , id="mute-btn">
-        <img id="volume-icon" src="/assets/volumeIcon.png" alt="Volume Icon">
+    <button onclick="toggleMute()" id="mute-btn">
+        <img id="volume-icon" src="assets/volumeIcon.png" alt="Volume Icon">
     </button>
     <button onclick="shuffleTrack()" id="shuffle-btn">
-        <img id="shuffle-icon" src="/assets/shuffleIcon.png" alt="Shuffle Icon">
+        <img id="shuffle-icon" src="assets/shuffleIcon.png" alt="Shuffle Icon">
     </button>
 
 </body>
