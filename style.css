@@ -23,7 +23,7 @@
     cursor: pointer;
     margin-left: 10px;
     z-index: 10020;
-    transform: translate(35vw, 0); 
+    transform: translate(35vw, 1vh); 
 
 }
 #hamburger-menu span {
@@ -66,49 +66,6 @@
 @media (max-width: 600px) {
     #about-popup {
         display: none !important;
-    }
-}
-
-/* Pomodoro and Todo mobile adjustments */
-@media (max-width: 600px) {
-    #pomodoro-clock {
-        right: 70px;
-        top: 60px;
-        padding: 16px 10px 12px 10px;
-        min-width: 140px;
-        max-width: 90vw;
-        border-radius: 12px;
-        font-size: 0.9rem;
-    }
-    #pomodoro-timer {
-        font-size: 1.3rem;
-    }
-    #pomodoro-controls button {
-        padding: 5px 8px;
-        font-size: 0.85rem;
-    }
-    #todo-list {
-        right: 2vw;
-        top: 120px;
-        min-width: 60vw;
-        max-width: 70vw;
-        padding: 10px 4vw;
-        border-radius: 12px;
-        font-size: 0.9rem;
-    }
-    #todo-list h3 {
-        font-size: 1.1rem;
-    }
-    #new-task-input {
-        font-size: 0.9rem;
-    }
-    #add-task-btn {
-        font-size: 0.9rem;
-        padding: 6px 8px;
-    }
-    #task-list li {
-        font-size: 0.9rem;
-        padding: 6px 6px;
     }
 }
 
@@ -195,6 +152,8 @@ header {
     z-index: 1;
 }
 
+/* Pomodoro Clock Styling */
+
 #pomodoro-clock {
     position: fixed;
     top: 80px;
@@ -269,6 +228,9 @@ header {
         top: 60px;
         padding: 16px 10px 12px 10px;
         min-width: 140px;
+        max-width: 90vw;
+        border-radius: 12px;
+        font-size: 0.9rem;
     }
     #pomodoro-timer {
         font-size: 1.6rem;
@@ -279,7 +241,8 @@ header {
     }
 }
 
-/* Container styling */
+
+/* Todo List Styling */
 #todo-list {
     display: none;
     position: fixed;
@@ -422,6 +385,34 @@ header {
 
 #task-list::-webkit-scrollbar-track {
     background: #282828;
+}
+
+
+/* Todo mobile adjustments */
+@media (max-width: 600px) {
+    #todo-list {
+        right: 2vw;
+        top: 120px;
+        min-width: 60vw;
+        max-width: 70vw;
+        padding: 10px 4vw;
+        border-radius: 12px;
+        font-size: 0.9rem;
+    }
+    #todo-list h3 {
+        font-size: 1.1rem;
+    }
+    #new-task-input {
+        font-size: 0.9rem;
+    }
+    #add-task-btn {
+        font-size: 0.9rem;
+        padding: 6px 8px;
+    }
+    #task-list li {
+        font-size: 0.9rem;
+        padding: 6px 6px;
+    }
 }
 
 /* Play/Pause Button */
@@ -787,6 +778,7 @@ header {
         text-align: right;
     }
 }
+
 
 /* Todo 
 -Make it align with the shuffle button and volume control
