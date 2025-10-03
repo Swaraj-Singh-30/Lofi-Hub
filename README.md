@@ -15,7 +15,7 @@ A simple web-based music player that streams **Lofi music from YouTube** in the 
 
 ## Demo
 
-*Demo coming soon!*
+Check out the project live here: [Lofi Hub](https://lofi-hub.netlify.app/)
 
 ---
 
@@ -65,22 +65,22 @@ A simple web-based music player that streams **Lofi music from YouTube** in the 
 - [x] Add play/pause button for music
 - [x] Support multiple GIFs
 - [x] Add shuffle functionality 
-- [ ] Mobile responsiveness
-- [ ] Add features for mobile view
-- [ ] work on stability of the music and gif
-- [ ] Imporve the UI
+- [x] Mobile responsiveness
+- [x] Add features for mobile view
+- [x] work on stability of the music and gif
+- [x] Imporve the UI
 
 ### Deployment
 
-- [ ] Host on GitHub Pages
+- [x] Host on Netlifly
 - [ ] Add proper README with demo GIF
 - [ ] License selection and addition
 
 ### Testing
 
-- [ ] Test on Chrome, Firefox, Edge
-- [ ] Test autoplay behavior
-- [ ] Test GIF display across resolutions
+- [x] Test on Chrome, Firefox, Edge
+- [x] Test autoplay behavior
+- [x] Test GIF display across resolutions
 
 ---
 
