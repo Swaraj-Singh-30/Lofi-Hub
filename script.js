@@ -22,13 +22,13 @@ function createPlayer() {
             enablejsapi: 1
         },
         events: {
-            onReady: function(event) {
+            onReady: function (event) {
                 console.log("YouTube player ready ✅");
                 isPlayerReady = true;
                 tryStartPlayer();
                 updatePlayerTitle();
                 // Listen for state changes to update title
-                event.target.addEventListener('onStateChange', function() {
+                event.target.addEventListener('onStateChange', function () {
                     updatePlayerTitle();
                 });
             }
@@ -44,7 +44,7 @@ function tryStartPlayer() {
 
         player.unMute();
         player.playVideo();
-        
+
         document.getElementById("overlay").style.display = "none";
         document.getElementById("player-wrapper").style.display = "block";
     }
@@ -71,15 +71,15 @@ function onYouTubeIframeAPIReady() {
 }
 
 // Hamburger menu toggle for mobile
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.getElementById('hamburger-menu');
     const headerBtns = document.getElementById('header-btns');
     if (hamburger && headerBtns) {
-        hamburger.addEventListener('click', function() {
+        hamburger.addEventListener('click', function () {
             headerBtns.classList.toggle('active');
         });
         // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (window.innerWidth <= 600 && !headerBtns.contains(e.target) && !hamburger.contains(e.target)) {
                 headerBtns.classList.remove('active');
             }
@@ -98,7 +98,7 @@ const fullscreenIcon = document.getElementById('fullscreen-icon');
 
 function toggleFullscreen() {
     const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
-    
+
     if (!isFullscreen) {
         // Enter fullscreen mode
         const bodyElement = document.documentElement;
@@ -132,16 +132,16 @@ function toggleFullscreen() {
 }
 
 fullscreenBtn.addEventListener('click', toggleFullscreen);
-function openTwitter(){
+function openTwitter() {
     const text = encodeURIComponent("Chilling to lofi beats✨  at");
-    const url = encodeURIComponent("https://lofihub.netlify.app"); 
-    const hashtags = encodeURIComponent("lofi,music,chill"); 
+    const url = encodeURIComponent("https://lofihub.netlify.app");
+    const hashtags = encodeURIComponent("lofi,music,chill");
     const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`;
-    
+
     window.open(twitterUrl, "_blank");
 }
 
-function openGitHub(){
+function openGitHub() {
     window.open("https://github.com/Swaraj-Singh-30/Lofi-Hub", "_blank");
 }
 
@@ -284,6 +284,19 @@ pomodoroClock.style.display = "none";
 updatePomodoroDisplay();
 showPomodoroState("idle");
 
+// Hide pomodoro clock when clicking outside
+document.addEventListener('click', function(e) {
+    const pomodoroClock = document.getElementById('pomodoro-clock');
+    const pomodoroBtn = document.querySelector('button[onclick="togglePomodoro()"]');
+    if (pomodoroClock && pomodoroClock.style.display === 'block') {
+        const clickedInside = pomodoroClock.contains(e.target) || (pomodoroBtn && pomodoroBtn.contains(e.target));
+        if (!clickedInside) {
+            pomodoroClock.style.display = 'none';
+        }
+    }
+});
+
+
 // To-Do List Functionality
 const todoList = document.getElementById("todo-list");
 todoList.style.display = "none"
@@ -299,53 +312,65 @@ function toggleTodo() {
 }
 
 function addTask() {
-  const input = document.getElementById("new-task-input");
-  const text = input.value.trim();
-  const maxLength = 50; // limit task length
+    const input = document.getElementById("new-task-input");
+    const text = input.value.trim();
+    const maxLength = 50; // limit task length
 
-  if (text === "") {
-    console.log("add something");
-    return;
-  }
+    if (text === "") {
+        console.log("add something");
+        return;
+    }
 
-  if (text.length > maxLength) {
-    alert(`Task cannot exceed ${maxLength} characters.`);
-    return;
-  }
+    if (text.length > maxLength) {
+        alert(`Task cannot exceed ${maxLength} characters.`);
+        return;
+    }
 
-  const ul = document.getElementById("task-list");
-  const li = document.createElement("li");
+    const ul = document.getElementById("task-list");
+    const li = document.createElement("li");
 
-  // Task text
-  const span = document.createElement("span");
-  span.textContent = text;
+    // Task text
+    const span = document.createElement("span");
+    span.textContent = text;
 
-  // Cross/Uncross button
-  const crossBtn = document.createElement("button");
-  crossBtn.textContent = "✔️";
-  crossBtn.onclick = function () {
-    span.style.textDecoration =
-      span.style.textDecoration === "line-through" ? "none" : "line-through";
-  };
+    // Cross/Uncross button
+    const crossBtn = document.createElement("button");
+    crossBtn.textContent = "✔️";
+    crossBtn.onclick = function () {
+        span.style.textDecoration =
+            span.style.textDecoration === "line-through" ? "none" : "line-through";
+    };
 
-  // Delete button
-  const deleteBtn = document.createElement("button");
-  deleteBtn.textContent = "🗑️";
-  deleteBtn.onclick = function () {
-    li.remove();
-  };
+    // Delete button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "🗑️";
+    deleteBtn.onclick = function () {
+        li.remove();
+    };
 
-  // Append everything
-  li.appendChild(span);
-  li.appendChild(crossBtn);
-  li.appendChild(deleteBtn);
-  ul.appendChild(li);
+    // Append everything
+    li.appendChild(span);
+    li.appendChild(crossBtn);
+    li.appendChild(deleteBtn);
+    ul.appendChild(li);
 
-  input.value = "";
+    input.value = "";
 }
 
+// Hide todo list when clicking outside
+document.addEventListener('click', function(e) {
+    const todoList = document.getElementById('todo-list');
+    const todoBtn = document.querySelector('button[onclick="toggleTodo()"]');
+    if (todoList && todoList.style.display === 'block') {
+        const clickedInside = todoList.contains(e.target) || (todoBtn && todoBtn.contains(e.target));
+        if (!clickedInside) {
+            todoList.style.display = 'none';
+        }
+    }
+});
+
 // Gift functionality
-const gifUrls = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif","https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif", "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDBzNmFxcHVqNHhxZmI4bjlibmhyYWplZ2NuNDFsMTR0dzAzbmtqMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZCSZp478OpzSMpAAFc/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExand0ZzVkaXV2ajQ3a3ZjemM4NGdrYWF1M3R6aXA4YW1xMHhvcm80YiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BbmDhO2gx3o96CpVM1/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHA0emw4aWtub3Qwb3RsMWo0aDl0djF2cWowOGQ2NnA5Z2gyZWdwbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/dvreHY4p06lzVSDrvj/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bG1nbTZ2YmpzbHlsMXdteHU4dTRlZnB0YWZ0cTFrM2Rvc3VvcHZuayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RgZFvGuI4OxLjuSvRF/giphy.gif"];
+const gifUrls = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif", "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDBzNmFxcHVqNHhxZmI4bjlibmhyYWplZ2NuNDFsMTR0dzAzbmtqMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZCSZp478OpzSMpAAFc/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExand0ZzVkaXV2ajQ3a3ZjemM4NGdrYWF1M3R6aXA4YW1xMHhvcm80YiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BbmDhO2gx3o96CpVM1/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHA0emw4aWtub3Qwb3RsMWo0aDl0djF2cWowOGQ2NnA5Z2gyZWdwbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/dvreHY4p06lzVSDrvj/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bG1nbTZ2YmpzbHlsMXdteHU4dTRlZnB0YWZ0cTFrM2Rvc3VvcHZuayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RgZFvGuI4OxLjuSvRF/giphy.gif"];
 
 const gifUrlsMobile = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/k8kITi9SAwe9JWbUaH/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/H62NM1ab7wzMXURdoi/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/c2CDTcHLscXaU5s1vK/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eHd5eHY3c3N2dnA2Nm9td2lob29iNGt3NjEyZDZlc3Z6NXA5dDM0OCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/QxSveBdhdtLgagcKdR/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif"];
 
@@ -392,17 +417,17 @@ let playerState = "playing";
 const playerImg = document.getElementById("pause-btn");
 
 function togglePlay() {
-    if(playerState !== "paused"){
-    player.pauseVideo();
-    playerState = "paused";
-    playerImg.src = "/assets/play.png";
-    playerImg.alt = "Play Icon";
+    if (playerState !== "paused") {
+        player.pauseVideo();
+        playerState = "paused";
+        playerImg.src = "/assets/play.png";
+        playerImg.alt = "Play Icon";
     }
-    else{
-    player.playVideo();
-    playerState = "playing";
-    playerImg.src = "/assets/pause.png";
-    playerImg.alt = "Pause Icon";
+    else {
+        player.playVideo();
+        playerState = "playing";
+        playerImg.src = "/assets/pause.png";
+        playerImg.alt = "Pause Icon";
     }
 }
 
@@ -445,13 +470,13 @@ let isMuted = false;
 const volumeIcon = document.getElementById("volume-icon");
 
 function toggleMute() {
-    if(!isMuted){
+    if (!isMuted) {
         player.mute();
         isMuted = true;
         volumeIcon.src = "/assets/muteIcon.png";
         volumeIcon.alt = "Muted Icon";
         volumeSlider.value = 0;
-    } else{
+    } else {
         player.unMute();
         isMuted = false;
         volumeIcon.src = "/assets/volumeIcon.png";
@@ -487,23 +512,23 @@ if (volumeSlider.value == 0) {
 //Preserving the default state of volume slider and icon
 
 if (volumeSlider) {
-  // Set the slider value to a default (e.g., 50)
-  volumeSlider.value = 50;
-  
-  // Set the volume of the player to match the new slider value
-  if (player && typeof player.setVolume === "function") {
-    player.setVolume(volumeSlider.value);
-  }
+    // Set the slider value to a default (e.g., 50)
+    volumeSlider.value = 50;
 
-  // Ensure the player is unmuted
-  if (player && typeof player.unMute === "function") {
-    player.unMute();
-  }
+    // Set the volume of the player to match the new slider value
+    if (player && typeof player.setVolume === "function") {
+        player.setVolume(volumeSlider.value);
+    }
 
-  // Set the icon to the unmuted state
-  volumeIcon.src = "/assets/volumeIcon.png";
-  volumeIcon.alt = "Volume Icon";
-  isMuted = false;
+    // Ensure the player is unmuted
+    if (player && typeof player.unMute === "function") {
+        player.unMute();
+    }
+
+    // Set the icon to the unmuted state
+    volumeIcon.src = "/assets/volumeIcon.png";
+    volumeIcon.alt = "Volume Icon";
+    isMuted = false;
 }
 
 // Live YT lofi tracks IDs
@@ -541,7 +566,7 @@ if (isPlayerReady) {
 
 // About Popup Functionality
 var isAboutPopOpen = false;
-function openAbout(){
+function openAbout() {
     const aboutPopup = document.getElementById("about-popup");
     const pomodoroClock = document.getElementById("pomodoro-clock");
     const todoList = document.getElementById("todo-list");
@@ -567,7 +592,7 @@ document.addEventListener("keydown", function (e) {
 //Play/Pause
 document.addEventListener("keydown", function (e) {
     if (e.key.toLowerCase() === " ") {
-            togglePlay();
+        togglePlay();
     }
 });
 
@@ -579,29 +604,29 @@ document.addEventListener("keydown", function (e) {
 });
 
 //Mute
-document.addEventListener("keydown", function(e){
-    if(e.key.toLowerCase() === "m"){
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "m") {
         toggleMute();
     }
 });
 
 //Fullscreen
-document.addEventListener("keydown", function(e){
-    if(e.key.toLowerCase() === "f"){
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "f") {
         toggleFullscreen();
     }
 });
 
 //Pomodoro
-document.addEventListener("keydown", function(e){
-    if(e.key.toLowerCase() === "c" || e.key.toLowerCase() === "p"){
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "c" || e.key.toLowerCase() === "p") {
         togglePomodoro();
     }
 })
 
 //todo-list
-document.addEventListener("keydown", function(e){
-    if(e.key.toLowerCase() === "t"){
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "t") {
         toggleTodo();
     }
 })

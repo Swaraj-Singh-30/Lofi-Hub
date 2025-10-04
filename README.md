@@ -75,5 +75,11 @@ Check out the project live here: [Lofi Hub](https://lofi-hub.netlify.app/)
 
 ## Credits
 
-- Lofi music streams provided by YouTube channels such as [Lofi Girl](https://www.youtube.com/c/LofiGirl)
+- Lofi music streams provided by YouTube channels such as 
+[ChillhopMusic](https://www.youtube.com/@ChillhopMusic)
+[LofiGirl](https://www.youtube.com/@LofiGirl)
+[LIVESTEEZYASFUCK](https://www.youtube.com/@steezyasfvck)
+[Lofi Tone Art](https://www.youtube.com/@Lo-fi_chill_mix)
+[Pluviophile Lofi](https://www.youtube.com/@Pluviophile_Lofi)
+
 - GIFs from [GIPHY](https://giphy.com/) or your own collection
