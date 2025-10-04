@@ -224,8 +224,8 @@ header {
 
 @media (max-width: 600px) {
     #pomodoro-clock {
-        right: 10px;
-        top: 60px;
+        right: 20vw;
+        top: 35vh;
         padding: 16px 10px 12px 10px;
         min-width: 140px;
         max-width: 90vw;
@@ -391,8 +391,8 @@ header {
 /* Todo mobile adjustments */
 @media (max-width: 600px) {
     #todo-list {
-        right: 2vw;
-        top: 120px;
+        right: 20vw;
+        top: 40vh;
         min-width: 60vw;
         max-width: 70vw;
         padding: 10px 4vw;
@@ -778,16 +778,6 @@ header {
         text-align: right;
     }
 }
-
-
-/* Todo 
--Make it align with the shuffle button and volume control
--Add a container around all three elements to manage their positioning together
--Add media queries to adjust the position of the container on smaller screens   
-button styling  
--Add About section with info about the project and shortcuts for website
-*/
-
 /* About popup styling */
 #about-popup {
     display: none;

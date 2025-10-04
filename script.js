@@ -1,19 +1,3 @@
-// Hamburger menu toggle for mobile
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.getElementById('hamburger-menu');
-    const headerBtns = document.getElementById('header-btns');
-    if (hamburger && headerBtns) {
-        hamburger.addEventListener('click', function() {
-            headerBtns.classList.toggle('active');
-        });
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (window.innerWidth <= 600 && !headerBtns.contains(e.target) && !hamburger.contains(e.target)) {
-                headerBtns.classList.remove('active');
-            }
-        });
-    }
-});
 let player;
 let isPlayerReady = false;
 let userHasInteracted = false;
@@ -60,7 +44,7 @@ function tryStartPlayer() {
 
         player.unMute();
         player.playVideo();
-
+        
         document.getElementById("overlay").style.display = "none";
         document.getElementById("player-wrapper").style.display = "block";
     }
@@ -85,6 +69,23 @@ if (typeof YT !== 'undefined' && YT.Player) {
 function onYouTubeIframeAPIReady() {
     createPlayer();
 }
+
+// Hamburger menu toggle for mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburger-menu');
+    const headerBtns = document.getElementById('header-btns');
+    if (hamburger && headerBtns) {
+        hamburger.addEventListener('click', function() {
+            headerBtns.classList.toggle('active');
+        });
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 600 && !headerBtns.contains(e.target) && !hamburger.contains(e.target)) {
+                headerBtns.classList.remove('active');
+            }
+        });
+    }
+});
 
 // Add event listeners for keydown and click.
 document.addEventListener("keydown", initPlayer, { once: true });
@@ -132,8 +133,14 @@ function toggleFullscreen() {
 
 fullscreenBtn.addEventListener('click', toggleFullscreen);
 function openTwitter(){
-    window.open("https://x.com/__Swaraj", "_blank"); 
+    const text = encodeURIComponent("Chilling to lofi beats✨  at");
+    const url = encodeURIComponent("https://lofihub.netlify.app"); 
+    const hashtags = encodeURIComponent("lofi,music,chill"); 
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`;
+    
+    window.open(twitterUrl, "_blank");
 }
+
 function openGitHub(){
     window.open("https://github.com/Swaraj-Singh-30/Lofi-Hub", "_blank");
 }
@@ -278,7 +285,6 @@ updatePomodoroDisplay();
 showPomodoroState("idle");
 
 // To-Do List Functionality
-
 const todoList = document.getElementById("todo-list");
 todoList.style.display = "none"
 function toggleTodo() {
@@ -341,26 +347,39 @@ function addTask() {
 // Gift functionality
 const gifUrls = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif","https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif", "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDBzNmFxcHVqNHhxZmI4bjlibmhyYWplZ2NuNDFsMTR0dzAzbmtqMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZCSZp478OpzSMpAAFc/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExand0ZzVkaXV2ajQ3a3ZjemM4NGdrYWF1M3R6aXA4YW1xMHhvcm80YiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BbmDhO2gx3o96CpVM1/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHA0emw4aWtub3Qwb3RsMWo0aDl0djF2cWowOGQ2NnA5Z2gyZWdwbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/dvreHY4p06lzVSDrvj/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bG1nbTZ2YmpzbHlsMXdteHU4dTRlZnB0YWZ0cTFrM2Rvc3VvcHZuayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RgZFvGuI4OxLjuSvRF/giphy.gif"];
 
-const gifUrlsMobile = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/k8kITi9SAwe9JWbUaH/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/H62NM1ab7wzMXURdoi/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/c2CDTcHLscXaU5s1vK/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eHd5eHY3c3N2dnA2Nm9td2lob29iNGt3NjEyZDZlc3Z6NXA5dDM0OCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/QxSveBdhdtLgagcKdR/giphy.gif", "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ21zcGJreDN5bmFrcDUzMmszOWZxdmk5Y3h0OWx4YmNqMGoxd2pjYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WTiJwq5cEY1gsRHJt9/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif"];
+const gifUrlsMobile = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/k8kITi9SAwe9JWbUaH/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/H62NM1ab7wzMXURdoi/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeTZxdjhrN2NpMTEybzAyZm5hNHgzd3VnM2R2MDlobms4MjR6eHd5ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/c2CDTcHLscXaU5s1vK/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eHd5eHY3c3N2dnA2Nm9td2lob29iNGt3NjEyZDZlc3Z6NXA5dDM0OCZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/QxSveBdhdtLgagcKdR/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif"];
 
 let currentGifIndex = 0;
 
-function showRandomGif() {
-    // Detect if mobile screen
-    const isMobile = window.innerWidth <= 768;
+function isMobileDevice() {
+    // User-Agent check (covers most phones/tablets)
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
 
-    // Choose the correct array
+function showRandomGif() {
+    // Detect if mobile by width OR userAgent
+    const isMobile = window.innerWidth <= 768 || isMobileDevice();
+
+    // Pick correct gif array
     const gifs = isMobile ? gifUrlsMobile : gifUrls;
 
-    // Pick a random GIF
+    // Random index
     currentGifIndex = Math.floor(Math.random() * gifs.length);
 
-    // Update the image src
+    // Update the image
     const gifImg = document.getElementById("lofi-gif");
     if (gifImg) {
         gifImg.src = gifs[currentGifIndex];
+        console.log(`Showing ${isMobile ? "MOBILE" : "DESKTOP"} GIF:`, gifImg.src);
     }
 }
+
+// Run when DOM is ready
+window.addEventListener("DOMContentLoaded", showRandomGif);
+
+// Also re-check on resize or orientation change
+window.addEventListener("resize", showRandomGif);
+window.addEventListener("orientationchange", showRandomGif);
 
 // Run on page load
 window.addEventListener("load", showRandomGif);
@@ -495,11 +514,7 @@ let currentTrackIndex = 0;
 function shuffleTrack() {
     currentTrackIndex = (currentTrackIndex + 1) % myTrackIds.length;
     player.loadVideoById(myTrackIds[currentTrackIndex]);
-    currentGifIndex = (currentGifIndex + 1) % gifUrls.length;
-    const gifImg = document.getElementById("lofi-gif");
-    if (gifImg) {
-        gifImg.src = gifUrls[currentGifIndex];
-    }
+    showRandomGif();
 }
 
 // Video title updating 
@@ -562,3 +577,31 @@ document.addEventListener("keydown", function (e) {
         shuffleTrack();
     }
 });
+
+//Mute
+document.addEventListener("keydown", function(e){
+    if(e.key.toLowerCase() === "m"){
+        toggleMute();
+    }
+});
+
+//Fullscreen
+document.addEventListener("keydown", function(e){
+    if(e.key.toLowerCase() === "f"){
+        toggleFullscreen();
+    }
+});
+
+//Pomodoro
+document.addEventListener("keydown", function(e){
+    if(e.key.toLowerCase() === "c" || e.key.toLowerCase() === "p"){
+        togglePomodoro();
+    }
+})
+
+//todo-list
+document.addEventListener("keydown", function(e){
+    if(e.key.toLowerCase() === "t"){
+        toggleTodo();
+    }
+})

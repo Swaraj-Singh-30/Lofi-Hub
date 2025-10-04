@@ -19,17 +19,6 @@ Check out the project live here: [Lofi Hub](https://lofi-hub.netlify.app/)
 
 ---
 
-## Installation
-
-1. **Clone the repository:**
-  ```bash
-  git clone https://github.com/Swaraj-Singh-30/Lofi-Hub.git
-  cd Lofi-Hub
-  ```
-2. **Open** `index.html` **in your browser.**
-
----
-
 ## How It Works
 
 - **YouTube Music:**  
