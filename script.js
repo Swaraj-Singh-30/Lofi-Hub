@@ -583,6 +583,7 @@ function openAbout() {
 
 // Shortcut keys functionality
 //Changing GIF
+<<<<<<< HEAD
 // Single keydown listener that ignores typing in inputs/textareas/contenteditables
 function isTypingTarget(el) {
     if (!el) return false;
@@ -641,3 +642,52 @@ document.addEventListener("keydown", function (e) {
         return;
     }
 });
+=======
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "g") {
+        showRandomGif();
+    }
+});
+
+//Play/Pause
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === " ") {
+        togglePlay();
+    }
+});
+
+//Shuffle Track
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "s") {
+        shuffleTrack();
+    }
+});
+
+//Mute
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "m") {
+        toggleMute();
+    }
+});
+
+//Fullscreen
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "f") {
+        toggleFullscreen();
+    }
+});
+
+//Pomodoro
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "c" || e.key.toLowerCase() === "p") {
+        togglePomodoro();
+    }
+})
+
+//todo-list
+document.addEventListener("keydown", function (e) {
+    if (e.key.toLowerCase() === "t") {
+        toggleTodo();
+    }
+})
+>>>>>>> 64377d466202a9bb8a0606821e4e38e1e57b909a
