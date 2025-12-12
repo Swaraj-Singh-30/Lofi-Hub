@@ -1,0 +1,857 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Fira Code", monospace;
+    box-sizing: border-box;
+}
+
+#top-title{
+    position: fixed;
+    left: 3vw;
+    top: 5vh;
+}
+/* Hamburger menu styles */
+#hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    z-index: 10020;
+    transform: translate(35vw, 1vh); 
+
+}
+#hamburger-menu span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    margin: 4px 0;
+    background: #fff;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+@media (max-width: 600px) {
+    .header-btns {
+        display: none !important;
+        position: absolute;
+        top: 54px;
+        right: 8px;
+        background: rgba(30,30,30,0.98);
+        border-radius: 12px;
+        box-shadow: 0 2px 12px #0005;
+        flex-direction: column;
+        padding: 10px 8px;
+        z-index: 10011;
+    }
+    .header-btns.active {
+        display: flex !important;
+        top: 10vh;
+        right: 7vw;
+    }
+    #hamburger-menu {
+        display: flex;
+    }
+    .about-desktop {
+        display: none !important;
+    }
+}
+
+/* Hide About popup on mobile */
+@media (max-width: 600px) {
+    #about-popup {
+        display: none !important;
+    }
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Fira Code", monospace;
+    font-size: 1.5rem;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9998;
+    /* --- Removed Glassmorphism Effect --- */
+    color: #fff; /* Set text color to white */
+}
+
+.header-btns {
+    margin-left: auto;
+}
+
+.header-btns button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0; /* Remove padding to avoid extra space around the image */
+    margin: 2vh 5px; /* Adjust margin as needed */
+}
+
+.header-btns button img {
+    width: 24px;  /* Set the size of your icon */
+    height: 24px;
+}
+
+#player-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#lofi-gif {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* makes it cover screen */
+    object-position: center; /* keeps it centered */
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+
+#player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Pomodoro Clock Styling */
+
+#pomodoro-clock {
+    position: fixed;
+    top: 80px;
+    right: 30px;
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    padding: 28px 32px 22px 32px;
+    z-index: 10001;
+    min-width: 210px;
+    display: none;
+    color: #fff;
+    animation: fadeInPomodoro 0.3s;
+}
+
+@keyframes fadeInPomodoro {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+#pomodoro-timer {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 18px;
+    cursor: pointer;
+    user-select: none;
+    color: #ffb86c;
+    text-shadow: 0 2px 8px #000a;
+    transition: color 0.2s;
+}
+#pomodoro-timer:hover {
+    color: #ffd6a0;
+}
+
+#pomodoro-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#pomodoro-controls button {
+    background: #282828;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 22px;
+    font-size: 1rem;
+    font-family: inherit;
+    margin: 0 4px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 1px 4px #0002;
+}
+
+#pomodoro-controls button:hover {
+    background: #ffb86c;
+    color: #222;
+}
+
+#pomodoro-options {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+    #pomodoro-clock {
+        right: 20vw;
+        top: 35vh;
+        padding: 16px 10px 12px 10px;
+        min-width: 140px;
+        max-width: 90vw;
+        border-radius: 12px;
+        font-size: 0.9rem;
+    }
+    #pomodoro-timer {
+        font-size: 1.6rem;
+    }
+    #pomodoro-controls button {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+
+/* Todo List Styling */
+#todo-list {
+    display: none;
+    position: fixed;
+    top: 120px;
+    right: 30px;
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    padding: 28px 32px;
+    z-index: 10001;
+    min-width: 250px;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    animation: fadeInTodo 0.3s;
+}
+
+@keyframes fadeInTodo {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* Header */
+#todo-list h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ffb86c;
+    font-size: 1.5rem;
+    text-shadow: 0 1px 6px #000a;
+}
+
+/* Input container */
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Input field */
+#new-task-input {
+    flex: 1;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 8px;
+    background: #282828;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+#new-task-input::placeholder {
+    color: #bbb;
+}
+
+/* Add button */
+#add-task-btn {
+    padding: 8px 12px;
+    background-color: #ffb86c;
+    color: #222;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+#add-task-btn:hover {
+    background-color: #ffd6a0;
+    color: #111;
+}
+
+/* Task list */
+#task-list {
+    list-style: none;
+    padding-left: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Task item */
+#task-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #282828;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Task text */
+#task-list li span {
+    flex: 1;
+    font-size: 16px;
+}
+
+/* Buttons inside li */
+#task-list li button {
+    margin-left: 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.2s, color 0.2s;
+    color: #ffb86c;
+}
+
+#task-list li button:hover {
+    transform: scale(1.2);
+    color: #ffd6a0;
+}
+
+/* Toggle button */
+.toggle-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 8px 14px;
+    background-color: #282828;
+    color: #ffb86c;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.toggle-btn:hover {
+    background-color: #ffb86c;
+    color: #222;
+}
+
+/* Scrollbar styling for tasks */
+#task-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#task-list::-webkit-scrollbar-thumb {
+    background-color: #ffb86c;
+    border-radius: 3px;
+}
+
+#task-list::-webkit-scrollbar-track {
+    background: #282828;
+}
+
+
+/* Todo mobile adjustments */
+@media (max-width: 600px) {
+    #todo-list {
+        right: 20vw;
+        top: 40vh;
+        min-width: 60vw;
+        max-width: 70vw;
+        padding: 10px 4vw;
+        border-radius: 12px;
+        font-size: 0.9rem;
+    }
+    #todo-list h3 {
+        font-size: 1.1rem;
+    }
+    #new-task-input {
+        font-size: 0.9rem;
+    }
+    #add-task-btn {
+        font-size: 0.9rem;
+        padding: 6px 8px;
+    }
+    #task-list li {
+        font-size: 0.9rem;
+        padding: 6px 6px;
+    }
+}
+
+/* Play/Pause Button */
+#play-pause-btn { 
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 18px;
+    z-index: 9998;
+    cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#play-pause-btn:hover {
+    background: none;
+    box-shadow: none;
+    transform: scale(1.08);
+}
+
+#play-pause-btn img {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 2px 6px #0008);
+    transition: filter 0.2s;
+    display: block;
+}
+
+#play-pause-btn:hover img {
+    filter: drop-shadow(0 2px 12px #ffb86c88);
+}
+
+@media (max-width: 900px) {
+    #play-pause-btn {
+        bottom: 20px;
+        left: 20px;
+        padding: 14px;
+    }
+    #play-pause-btn img {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 600px) {
+    #play-pause-btn {
+       bottom: 2vh;
+       left: 4vw;
+       padding: 6px;
+       transform: scale(0.75);
+    }
+    #play-pause-btn img {
+        width: 16px;
+        height: 20px;
+    }
+}
+
+/* Volume Slider Styling */
+.volume-control {
+    position: fixed;
+    bottom: 48px;
+    left: 121px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-size: 1rem;
+    z-index: 9999;
+    background: transparent;
+    padding: 10px 0;
+    border-radius: 12px;
+    box-shadow: none;
+    z-index: 9998;
+}
+
+#volume-slider {
+    flex: 1;
+    width: 120px;
+    max-width: 180px;
+    min-width: 80px;
+    accent-color: #fff;
+    cursor: pointer;
+    background: transparent;
+    margin: 0 4px;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Track */
+#volume-slider::-webkit-slider-runnable-track {
+    height: 6px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+}
+#volume-slider::-moz-range-track {
+    height: 6px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+}
+#volume-slider::-ms-fill-lower,
+#volume-slider::-ms-fill-upper {
+    background: #fff;
+    border-radius: 6px;
+}
+
+/* Thumb */
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    box-shadow: none;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: -4px;
+}
+#volume-slider:focus::-webkit-slider-thumb {
+    background: #fff;
+    outline: 2px solid #fff;
+}
+#volume-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    box-shadow: none;
+    transition: background 0.2s, transform 0.2s;
+}
+#volume-slider:focus::-moz-range-thumb {
+    background: #fff;
+    outline: 2px solid #fff;
+}
+#volume-slider::-ms-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    box-shadow: none;
+    transition: background 0.2s, transform 0.2s;
+}
+#volume-slider:focus::-ms-thumb {
+    background: #fff;
+    outline: 2px solid #fff;
+}
+
+/* Hide outline for Firefox */
+#volume-slider:focus {
+    outline: none;
+}
+
+/* For IE */
+#volume-slider::-ms-tooltip {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .volume-control {
+        bottom: 20px;
+        left: 70px;
+        padding: 8px 0;
+    }
+    #volume-slider {
+        width: 80px;
+        min-width: 50px;
+        max-width: 120px;
+        height: 5px;
+    }
+}
+@media (max-width: 900px) {
+    .volume-control {
+        display: none;
+    }
+}
+
+/* Mute Button Styling */
+#mute-btn {
+    position: fixed;
+    bottom: 40px;
+    left: 82px;
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 10px;
+    z-index: 9998;
+    cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mute-btn img {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 2px 6px #0008);
+    transition: filter 0.2s;
+    display: block;
+}
+
+/* Responsive Mute Button */
+@media (max-width: 900px) {
+    #mute-btn {
+        bottom: 20px;
+        left: 45px;
+        padding: 8px;
+    }
+    #mute-btn img {
+        width: 20px;
+        height: 20px;
+    }
+}
+@media (max-width: 900px) {
+    #mute-btn {
+        bottom: 12px;
+        left: 36px;
+        padding: 6px;
+    }
+    #mute-btn img {
+        display: none;
+    }
+}
+/* Shuffle Button Styling */
+#shuffle-btn {
+    position: fixed;
+    bottom: 41px;
+    left: 260px;
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 10px;
+    z-index: 9998;
+    cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#shuffle-btn img {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 2px 6px #0008);
+    transition: filter 0.2s;
+    display: block;
+}
+
+#shuffle-btn:hover {
+    background: none;
+    box-shadow: none;
+    transform: scale(1.08);
+}
+
+#shuffle-btn:hover img {
+    filter: drop-shadow(0 2px 12px #ffb86c88);
+}
+
+/* Responsive Shuffle Button */
+@media (max-width: 1200px) {
+    #shuffle-btn {
+        left: 26vw;
+    }
+}
+@media (max-width: 900px) {
+    #shuffle-btn {
+        bottom: 3.5vh;
+        left: 12vw;
+        padding: 8px;
+    }
+    #shuffle-btn img {
+        width: 20px;
+        height: 20px;
+    }
+}
+@media (max-width: 600px) {
+    #shuffle-btn {
+        bottom: 2.2vh;
+        left: 14vw;
+        padding: 6px;
+    }
+    #shuffle-btn img {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Player Title Styling */
+#player-title {
+    position: fixed;
+    left: 39vw;
+    bottom: 4vh;
+    color: #fff;
+    font-size: 1.1rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 7px 14px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 9998;
+    max-width: 60vw;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* container holding multiple spans */
+#player-title .marquee {
+    display: inline-flex;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee 12s linear infinite;
+}
+
+#player-title span {
+    padding-right: 3rem;
+}
+
+/* keyframes: shift only 25% of full strip before looping */
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-25%);
+    }
+}
+
+
+@media (max-width: 1200px) {
+    #player-title {
+        left: 48vw;
+        font-size: 1rem;
+        max-width: 50vw;
+        bottom: 7vh;
+    }
+}
+@media (max-width: 900px) {
+    #player-title {
+        left: 50vw;
+        bottom: 3vh;
+        font-size: 0.95rem;
+        max-width: 45vw;
+    }
+}
+@media (max-width: 600px) {
+    #player-title {
+        left: auto;
+        right: 3vw;
+        bottom: 2vh;
+        font-size: 0.65rem;
+        max-width: 60vw;
+        padding: 5px 8px;
+        text-align: right;
+    }
+}
+/* About popup styling */
+#about-popup {
+    display: none;
+    position: fixed;
+    top: 10vh;
+    right: 1vw;
+    background: rgba(30,30,30,0.98);
+    color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px #0005;
+    padding: 16px 18px 10px 18px;
+    min-width: 180px;
+    max-width: 450px;
+    font-size: 1rem;
+    z-index: 10010;
+    animation: fadeInPomodoro 0.3s;
+}
+
+@keyframes fadeInAbout {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+#about-popup .popup-content {
+    padding: 0;
+}
+#about-popup h2 {
+    margin: 0 0 6px 0;
+    color: #ffb86c;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    text-align: left;
+}
+#about-popup p, #about-popup ul {
+    margin: 0 0 6px 0;
+    font-size: 0.97em;
+}
+#about-popup ul {
+    padding-left: 18px;
+}
+#about-popup li {
+    margin-bottom: 2px;
+}
+#about-popup a {
+    color: #ffb86c;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+#about-popup a:hover {
+    color: #ffd6a0;
+}
+@media (max-width: 900px) {
+    #about-popup {
+        top: 9vh;
+        right: 4vw;
+        min-width: 130px;
+        max-width: 30vw;
+        font-size: 0.92rem;
+        padding: 10px 8px 6px 8px;
+    }
+    #about-popup h2 {
+        font-size: 1em;
+    }
+}
+@media (max-width: 600px) {
+    #about-popup {
+        top: 4px;
+        right: 2px;
+        padding: 7px 4px 4px 4px;
+        min-width: 90px;
+        max-width: 120px;
+        font-size: 0.78rem;
+    }
+    #about-popup h2 {
+        font-size: 1em;
+    }
+}

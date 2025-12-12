@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Lofi Hub</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="assets/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Description -->
+    <meta name="description"
+        content="Welcome to the Lofi Hub! Stream infinite, non-stop lofi beats for studying, focus, and relaxation. The best chill music radio 24/7.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P8KD0TW6V3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-P8KD0TW6V3');
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <h1 id="top-title">Lofi Hub</h1>
+        <div class="header-btns" id="header-btns">
+            <button id="fullscreen-btn" onclick="openFullscreen()">
+                <img id="fullscreen-icon" src="assets/fullScreen.png" alt="Fullscreen Icon">
+            </button>
+            <button onclick="openTwitter()">
+                <img id="twitter-icon" src="assets/twitterLogo.png" alt="Twitter Icon">
+            </button>
+            <button onclick="openGitHub()">
+                <img id="GitHub-icon" src="assets/GitHubLogo.png" alt="GitHub Icon">
+            </button>
+            <button onclick="togglePomodoro()">
+                <img src="assets/clockLogo.png" alt="Clock Icon">
+            </button>
+            <button onclick="toggleTodo()">
+                <img src="assets/todoLogo.png" alt="To-Do Icon">
+            </button>
+            <button onclick="openAbout()" class="about-desktop">
+                <img src="assets/heart.png" alt="Heart Icon">
+            </button>
+        </div>
+        <button id="hamburger-menu" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div id="about-popup" class="popup about-desktop" style="display:none;">
+            <div class="popup-content">
+                <h2>About Lofi Hub</h2>
+                <p>Lofi Hub is a web application that combines a YouTube music player with a Pomodoro timer and a to-do
+                    list to help you stay focused and productive.</p>
+                <p style="margin-bottom:4px;">Features:</p>
+                <ul style="margin-bottom:4px;">
+                    <li>Play relaxing lofi music from YouTube</li>
+                    <li>Pomodoro timer to manage work and break intervals</li>
+                    <li>To-do list to keep track of tasks</li>
+                </ul>
+                <p style="margin-bottom:4px;">Shortcuts:</p>
+                <ul style="margin-bottom:4px;">
+                    <li><b>G</b>: Shuffle GIF</li>
+                    <li><b>Space bar</b>:Pause/play music</li>
+                    <li><b>Clock[C/P]</b>: Pomodoro timer</li>
+                    <li><b>Todo[T]</b>: Show/hide todo list</li>
+                    <li><b>Volume/Mute[M]</b>: Adjust/mute sound</li>
+                </ul>
+                <p style="font-size:0.85em;margin:0;">By <a href="https://github.com/Swaraj-Singh-30/Lofi-Hub"
+                        target="_blank" style="color:#ffb86c;">Swaraj Singh</a></p>
+            </div>
+        </div>
+    </header>
+
+    <div id="overlay">
+        <h2>Press any key or click to start 🎵</h2>
+    </div>
+
+    <div id="player-wrapper" style="display:none;">
+        <img id="lofi-gif"
+            src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm4yb2VrYTR1bndzZXptMTFpYnoyYndyMmQwdmhnNzBpaGpkY2M5ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/h58dtf5vTpjulO4M5o/giphy.gif"
+            alt="Lofi GIF">
+        <div id="player"></div>
+        <h3 id="player-title">
+            <div class="marquee">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </h3>
+    </div>
+
+    <div id="pomodoro-clock">
+        <div id="pomodoro-timer">25:00</div>
+        <div id="pomodoro-controls">
+            <button id="pomodoro-start">Start</button>
+            <button id="pomodoro-reset">Reset</button>
+            <div id="pomodoro-options" style="display: none;">
+                <button id="pomodoro-continue">Continue</button>
+                <button id="pomodoro-stop">Stop</button>
+            </div>
+        </div>
+    </div>
+    <audio id="pomodoro-alarm" src="assets/alarm.mp3" preload="auto"></audio>
+
+    <div id="todo-list">
+        <h3>Todo-List</h3>
+        <input type="text" id="new-task-input" placeholder="Add a new task...">
+        <button id="add-task-btn" onclick="addTask()">Add</button>
+        <ul id="task-list"></ul>
+    </div>
+
+    <button onclick="togglePlay()" id="play-pause-btn">
+        <img id="pause-btn" src="assets/pause.png" alt="Pause Icon">
+    </button>
+
+    <div class="volume-control">
+        <input type="range" id="volume-slider" min="0" max="100" step="1" value="50">
+    </div>
+    <!-- issue -->
+    <button onclick="toggleMute()" id="mute-btn">
+        <img id="volume-icon" src="assets/volumeIcon.png" alt="Volume Icon">
+    </button>
+    <button onclick="shuffleTrack()" id="shuffle-btn">
+        <img id="shuffle-icon" src="assets/shuffleIcon.png" alt="Shuffle Icon">
+    </button>
+
+</body>
+
+</html>
