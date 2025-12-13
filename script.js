@@ -285,7 +285,7 @@ updatePomodoroDisplay();
 showPomodoroState("idle");
 
 // Hide pomodoro clock when clicking outside
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     const pomodoroClock = document.getElementById('pomodoro-clock');
     const pomodoroBtn = document.querySelector('button[onclick="togglePomodoro()"]');
     if (pomodoroClock && pomodoroClock.style.display === 'block') {
@@ -358,16 +358,67 @@ function addTask() {
 }
 
 // Hide todo list when clicking outside
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     const todoList = document.getElementById('todo-list');
     const todoBtn = document.querySelector('button[onclick="toggleTodo()"]');
-    if (todoList && todoList.style.display === 'block') {
+
+    // Only close if visible
+    if (todoList && (todoList.style.display === 'block' || getComputedStyle(todoList).display === 'block')) {
         const clickedInside = todoList.contains(e.target) || (todoBtn && todoBtn.contains(e.target));
+
         if (!clickedInside) {
             todoList.style.display = 'none';
+            // Optional: Remove active class if we used one
+            document.body.classList.remove("todo-active");
         }
     }
 });
+
+// Make Todo List Draggable
+const todoHeader = todoList.querySelector("h3");
+let isDragging = false;
+let currentX;
+let currentY;
+let initialX;
+let initialY;
+let xOffset = 0;
+let yOffset = 0;
+
+todoHeader.addEventListener("mousedown", dragStart);
+document.addEventListener("mouseup", dragEnd);
+document.addEventListener("mousemove", drag);
+
+function dragStart(e) {
+    initialX = e.clientX - xOffset;
+    initialY = e.clientY - yOffset;
+
+    if (e.target === todoHeader) {
+        isDragging = true;
+    }
+}
+
+function dragEnd(e) {
+    initialX = currentX;
+    initialY = currentY;
+    isDragging = false;
+}
+
+function drag(e) {
+    if (isDragging) {
+        e.preventDefault();
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+
+        xOffset = currentX;
+        yOffset = currentY;
+
+        setTranslate(currentX, currentY, todoList);
+    }
+}
+
+function setTranslate(xPos, yPos, el) {
+    el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+}
 
 // Gift functionality
 const gifUrls = ["https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHpnb2Q5amUyc2o1czczMTlvdXc4NjdmZDhvcnQyNHNnMzd4d2wwdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/A5ffIYwJoEpVcMOYiO/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bzJveGNvcXppYjJjaTJnMjIzMmdlbjc4aHVjam1iN25jZXJ1N3hpeSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/LSKHkpRJySs5W81D7B/giphy.gif", "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDBzNmFxcHVqNHhxZmI4bjlibmhyYWplZ2NuNDFsMTR0dzAzbmtqMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZCSZp478OpzSMpAAFc/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExand0ZzVkaXV2ajQ3a3ZjemM4NGdrYWF1M3R6aXA4YW1xMHhvcm80YiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BbmDhO2gx3o96CpVM1/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHA0emw4aWtub3Qwb3RsMWo0aDl0djF2cWowOGQ2NnA5Z2gyZWdwbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/dvreHY4p06lzVSDrvj/giphy.gif", "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3bG1nbTZ2YmpzbHlsMXdteHU4dTRlZnB0YWZ0cTFrM2Rvc3VvcHZuayZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RgZFvGuI4OxLjuSvRF/giphy.gif"];
@@ -641,3 +692,316 @@ document.addEventListener("keydown", function (e) {
         return;
     }
 });
+
+// Video Call Functionality
+let peer = null;
+let localStream = null;
+let currentCall = null;
+
+function toggleVideoCall() {
+    const videoPopup = document.getElementById("video-call-popup");
+    const aboutPopup = document.getElementById("about-popup");
+    const pomodoroClock = document.getElementById("pomodoro-clock");
+    const todoList = document.getElementById("todo-list");
+
+    if (videoPopup.style.display === "none" || videoPopup.style.display === "") {
+        videoPopup.style.display = "block";
+        // Don't close other popups to allow multitasking
+        // if (aboutPopup) aboutPopup.style.display = "none";
+        // if (pomodoroClock) pomodoroClock.style.display = "none";
+        // if (todoList) todoList.style.display = "none";
+
+        // Initialize PeerJS and stream if not already done
+        if (!peer) {
+            initPeer();
+        }
+        if (!localStream) {
+            startLocalVideo();
+        }
+    } else {
+        videoPopup.style.display = "none";
+        // Only stop the camera if NOT in a call
+        if (!currentCall) {
+            stopLocalStream();
+        }
+    }
+}
+
+function initPeer() {
+    peer = new Peer(); // Create a new PeerJS instance
+
+    peer.on('open', function (id) {
+        document.getElementById("my-peer-id").innerText = id;
+        document.getElementById("call-status").innerText = "Ready to connect";
+    });
+
+    peer.on('call', function (call) {
+        // Show custom modal instead of confirm
+        const modal = document.getElementById("incoming-call-modal");
+        const acceptBtn = document.getElementById("btn-accept-call");
+        const declineBtn = document.getElementById("btn-decline-call");
+
+        modal.style.display = "flex";
+
+        // Handle Accept
+        acceptBtn.onclick = function () {
+            modal.style.display = "none";
+            if (localStream) {
+                call.answer(localStream);
+                currentCall = call;
+                handleCallStream(call);
+                document.getElementById("call-status").innerText = "Connected";
+            } else {
+                navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
+                    localStream = stream;
+                    document.getElementById("local-video").srcObject = stream;
+
+                    // Reset buttons to match the new stream (Active = ON)
+                    document.getElementById("btn-toggle-audio").classList.remove("active");
+                    document.getElementById("btn-toggle-video").classList.remove("active");
+
+                    call.answer(stream);
+                    currentCall = call;
+                    handleCallStream(call);
+                    document.getElementById("call-status").innerText = "Connected";
+                }).catch((err) => {
+                    console.error('Failed to get local stream', err);
+                    alert("Could not access camera/microphone.");
+                });
+            }
+        };
+
+        // Handle Decline
+        declineBtn.onclick = function () {
+            modal.style.display = "none";
+            call.close();
+        };
+    });
+
+    peer.on('error', function (err) {
+        console.error(err);
+        alert("PeerJS Error: " + err.type);
+    });
+}
+
+function startLocalVideo() {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
+        localStream = stream;
+        const localVideo = document.getElementById("local-video");
+        localVideo.srcObject = stream;
+        localVideo.muted = true; // Always mute local video to avoid feedback
+
+        // Reset buttons to default state (ON)
+        document.getElementById("btn-toggle-audio").classList.remove("active");
+        const videoBtn = document.getElementById("btn-toggle-video");
+        videoBtn.classList.remove("active");
+        videoBtn.disabled = false;
+    }).catch((err) => {
+        console.error('Failed to get local stream', err);
+        document.getElementById("call-status").innerText = "Error: No Camera/Mic access";
+    });
+}
+
+function connectToPeer() {
+    const remoteId = document.getElementById("remote-peer-id").value.trim();
+    const myId = document.getElementById("my-peer-id").innerText;
+
+    if (!remoteId) {
+        showToast("Please enter a Peer ID");
+        return;
+    }
+
+    if (remoteId === myId) {
+        showToast("You can't call yourself, that's lonely! 🥺");
+        return;
+    }
+
+    if (!peer) {
+        alert("PeerJS not initialized. Try reopening the popup.");
+        return;
+    }
+
+    document.getElementById("call-status").innerText = "Connecting...";
+
+    // Get stream again to be sure (or reuse localStream)
+    if (localStream) {
+        const call = peer.call(remoteId, localStream);
+        currentCall = call;
+        handleCallStream(call);
+    } else {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
+            localStream = stream;
+            document.getElementById("local-video").srcObject = stream;
+
+            // Reset buttons to match the new stream
+            document.getElementById("btn-toggle-audio").classList.remove("active");
+            document.getElementById("btn-toggle-video").classList.remove("active");
+
+            const call = peer.call(remoteId, stream);
+            currentCall = call;
+            handleCallStream(call);
+        }).catch((err) => {
+            console.error('Failed to get local stream', err);
+            alert("Could not access camera/microphone.");
+        });
+    }
+}
+
+function handleCallStream(call) {
+    call.on('stream', function (remoteStream) {
+        document.getElementById("remote-video").srcObject = remoteStream;
+        document.getElementById("call-status").innerText = "Connected";
+    });
+
+    call.on('close', function () {
+        endCallUI();
+    });
+
+    call.on('error', function (err) {
+        console.error(err);
+        endCallUI();
+    });
+}
+
+function endCall() {
+    if (currentCall) {
+        currentCall.close();
+    }
+    // stopLocalStream(); // Moved to endCallUI to handle remote hangup too
+    endCallUI();
+}
+
+function stopLocalStream() {
+    if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+        localStream = null;
+    }
+    const localVideo = document.getElementById("local-video");
+    if (localVideo) {
+        localVideo.srcObject = null;
+    }
+}
+
+function endCallUI() {
+    currentCall = null;
+    document.getElementById("remote-video").srcObject = null;
+    document.getElementById("call-status").innerText = "Call Ended / Ready";
+
+    // Stop the camera/mic when the call ends (regardless of who ended it)
+    stopLocalStream();
+
+    // Show End Screen
+    document.getElementById("call-ended-screen").style.display = "flex";
+
+    // Hide Video Grid & Controls
+    document.querySelector(".video-grid").style.display = "none";
+    document.querySelector(".control-bar").style.display = "none";
+    document.querySelector(".video-header").style.display = "none";
+
+    // Reset Buttons to "OFF" state (visually) since stream is stopped
+    document.getElementById("btn-toggle-audio").classList.add("active");
+    document.getElementById("btn-toggle-video").classList.add("active");
+}
+
+function resetVideoUI() {
+    // Hide End Screen
+    document.getElementById("call-ended-screen").style.display = "none";
+
+    // Show Video Grid & Controls
+    document.querySelector(".video-grid").style.display = "grid";
+    document.querySelector(".control-bar").style.display = "flex";
+    document.querySelector(".video-header").style.display = "flex";
+
+    // Restart Local Video for next call
+    startLocalVideo();
+}
+
+function shareOnTwitter() {
+    const text = encodeURIComponent("Just had a great study session on Lofi Hub! 🎵✨ Check it out:");
+    const url = encodeURIComponent("https://lofihub.netlify.app");
+    const hashtags = encodeURIComponent("lofi,study,focus");
+    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`, "_blank");
+}
+
+function starOnGitHub() {
+    window.open("https://github.com/Swaraj-Singh-30/Lofi-Hub", "_blank");
+}
+
+function toggleAudio() {
+    if (localStream) {
+        const audioTrack = localStream.getAudioTracks()[0];
+        if (audioTrack) {
+            audioTrack.enabled = !audioTrack.enabled;
+            const btn = document.getElementById("btn-toggle-audio");
+            btn.classList.toggle("active", !audioTrack.enabled);
+            // Don't change innerText to avoid removing SVG
+        }
+    }
+}
+
+function toggleVideo() {
+    const btn = document.getElementById("btn-toggle-video");
+    if (!localStream) return;
+
+    const videoTrack = localStream.getVideoTracks().find(t => t.readyState === 'live');
+
+    if (videoTrack && videoTrack.enabled) {
+        // Turn OFF: Stop the track to turn off the camera light
+        videoTrack.stop();
+        videoTrack.enabled = false;
+        localStream.removeTrack(videoTrack);
+        btn.classList.add("active");
+    } else {
+        // Turn ON: Request a new video stream
+        btn.disabled = true; // Prevent double-clicks
+        navigator.mediaDevices.getUserMedia({ video: true }).then((newStream) => {
+            const newVideoTrack = newStream.getVideoTracks()[0];
+            localStream.addTrack(newVideoTrack);
+            btn.classList.remove("active");
+
+            // If in a call, replace the track
+            if (currentCall && currentCall.peerConnection) {
+                const sender = currentCall.peerConnection.getSenders().find(s => s.track && s.track.kind === 'video');
+                if (sender) {
+                    sender.replaceTrack(newVideoTrack);
+                }
+            }
+        }).catch(err => {
+            console.error("Failed to restart video:", err);
+            alert("Could not restart camera.");
+        }).finally(() => {
+            btn.disabled = false;
+        });
+    }
+}
+
+function copyPeerId() {
+    const idText = document.getElementById("my-peer-id").innerText;
+    if (idText && idText !== "Generating...") {
+        navigator.clipboard.writeText(idText).then(() => {
+            showToast("ID copied to clipboard! 📋");
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+}
+
+// Custom Toast Function
+function showToast(message) {
+    const toast = document.getElementById("toast-notification");
+    const toastMsg = document.getElementById("toast-message");
+
+    if (toast && toastMsg) {
+        toastMsg.innerText = message;
+        toast.classList.add("show");
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3000);
+    }
+}
+
+// Hide video popup when clicking outside
+// Hide video popup when clicking outside - REMOVED to prevent accidental closing
+// document.addEventListener('click', function (e) { ... });

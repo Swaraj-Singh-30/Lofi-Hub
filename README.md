@@ -1,15 +1,28 @@
 # Lofi Music & GIF Player
 
-A simple web-based music player that streams **Lofi music from YouTube** in the background while displaying a **selected GIF in the foreground**. Perfect for creating a relaxing, focused ambiance.
+A feature-rich web application designed to create the perfect environment for studying, working, or relaxing. Combine soothing Lofi beats with productivity tools like a Pomodoro timer, a draggable To-Do list, and peer-to-peer video calling for study sessions.
 
 ---
 
 ## Features
 
-- Plays a YouTube Lofi stream **muted initially**, then unmutes after user interaction (handles autoplay restrictions)
-- Background music continues seamlessly while the GIF animates in the foreground
-- Clean, minimal interface with no distracting controls
-- Works across modern browsers
+### 🎵 Immersive Lofi Experience
+- Streams high-quality Lofi music from YouTube.
+- Background GIFs that change to set the mood.
+- Shuffle functionality to switch between different vibes.
+- Volume control and Play/Pause toggle.
+
+### 📹 Peer-to-Peer Video Calling
+- **Instant Connections**: Connect with friends using a simple Peer ID.
+- **Privacy First**: Built with PeerJS, connections are direct (P2P).
+- **Custom UI**: Beautiful, glassmorphism-styled video interface.
+- **Smart Controls**: Camera/Mic toggles, "Call Ended" screen with social sharing.
+- **Mirroring**: Option to mirror video feeds for a natural feel.
+
+### 📝 Productivity Tools
+- **Draggable To-Do List**: A floating, glass-styled task list you can move anywhere on the screen.
+- **Pomodoro Timer**: Built-in timer to manage study/break intervals.
+- **Custom Notifications**: Non-intrusive toast notifications and modals.
 
 ---
 
@@ -19,67 +32,30 @@ Check out the project live here: [Lofi Hub](https://lofi-hub.netlify.app/)
 
 ---
 
-## How It Works
-
-- **YouTube Music:**  
-  The player embeds a YouTube Lofi stream using an `<iframe>`. Due to browser autoplay restrictions, the music starts muted and is unmuted after the user interacts with the page (e.g., clicks anywhere).
-- **GIF Display:**  
-  A GIF is displayed in the foreground using a standard `<img>` tag. You can easily swap out the GIF for your own.
-
----
-
-## Customization
-
-- **Change the GIF:**  
-  Replace the file at `assets/your_gif.gif` with your preferred GIF, or update the image path in `index.html`.
-
-- **Change the YouTube Stream:**  
-  Edit the YouTube embed URL in `index.html` to use your favorite Lofi stream.
-
----
-
 ## Project To-Do List
 
-### Features
-
+### Core Features
 - [x] Play Lofi music from YouTube
 - [x] GIF animation in the foreground
-- [x] Autoplay works seamlessly across browsers
-- [x] Mute/unmute after user interaction
-- [x] Customizable GIF selection
+- [x] Mute/unmute & Volume Control
+- [x] Shuffle functionality
 
-### Improvements
+### Productivity & Social
+- [x] **Video Calling**: Peer-to-peer video chat with custom UI
+- [x] **To-Do List**: Draggable, persistent, and non-intrusive
+- [x] **Pomodoro Timer**: Integrated focus timer
+- [x] **Custom Notifications**: Replaced browser alerts with custom toasts/modals
 
-- [x] Add volume control
-- [x] Add play/pause button for music
-- [x] Support multiple GIFs
-- [x] Add shuffle functionality 
+### UI/UX Improvements
 - [x] Mobile responsiveness
-- [x] Add features for mobile view
-- [x] work on stability of the music and gif
-- [x] Imporve the UI
-
-### Deployment
-
-- [x] Host on Netlifly
-- [ ] Add proper README with demo GIF
-- [ ] License selection and addition
-
-### Testing
-
-- [x] Test on Chrome, Firefox, Edge
-- [x] Test autoplay behavior
-- [x] Test GIF display across resolutions
+- [x] Glassmorphism design updates
+- [x] Split-view/Overlay logic for multitasking
+- [x] "Call Ended" experience with social sharing
 
 ---
 
 ## Credits
 
-- Lofi music streams provided by YouTube channels such as 
-[ChillhopMusic](https://www.youtube.com/@ChillhopMusic)
-[LofiGirl](https://www.youtube.com/@LofiGirl)
-[LIVESTEEZYASFUCK](https://www.youtube.com/@steezyasfvck)
-[Lofi Tone Art](https://www.youtube.com/@Lo-fi_chill_mix)
-[Pluviophile Lofi](https://www.youtube.com/@Pluviophile_Lofi)
-
-- GIFs from [GIPHY](https://giphy.com/) or your own collection
+- **Music**: [ChillhopMusic](https://www.youtube.com/@ChillhopMusic), [LofiGirl](https://www.youtube.com/@LofiGirl), [LIVESTEEZYASFUCK](https://www.youtube.com/@steezyasfvck)
+- **GIFs**: [GIPHY](https://giphy.com/)
+- **Tech Stack**: HTML, CSS, JavaScript, PeerJS (for video calls)
