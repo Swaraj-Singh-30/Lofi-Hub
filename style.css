@@ -1357,8 +1357,8 @@ header {
     color: #fff;
     padding: 12px 24px;
     border-radius: 50px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(234, 67, 53, 0.4); /* Reddish shadow */
+    font-size: 1.1rem; /* Increased font size */
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     z-index: 10020;

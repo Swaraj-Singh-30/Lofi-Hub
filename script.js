@@ -694,6 +694,7 @@ let peer = null;
 let localStream = null;
 let currentCall = null;
 let isExplicitHangup = false;
+let joinAttempts = {};
 
 function toggleVideoCall() {
     const videoPopup = document.getElementById("video-call-popup");
@@ -722,7 +723,8 @@ function toggleVideoCall() {
 }
 
 function initPeer() {
-    peer = new Peer({
+    const savedId = sessionStorage.getItem('lofi_peer_id');
+    const config = {
         config: {
             iceServers: [
                 { urls: 'stun:stun.l.google.com:19302' },
@@ -733,14 +735,51 @@ function initPeer() {
                 { urls: 'stun:global.stun.twilio.com:3478' }
             ]
         }
-    }); // Create a new PeerJS instance with expanded STUN servers
+    };
+
+    if (savedId) {
+        peer = new Peer(savedId, config);
+    } else {
+        peer = new Peer(config);
+    }
 
     peer.on('open', function (id) {
         document.getElementById("my-peer-id").innerText = id;
         document.getElementById("call-status").innerText = "Ready to connect";
+        sessionStorage.setItem('lofi_peer_id', id);
+    });
+
+    peer.on('connection', function (conn) {
+        conn.on('data', function (data) {
+            if (data && data.type === 'REJECT' && data.reason === 'ROOM_FULL') {
+                showToast("Meeting is full. Only 2 participants allowed.");
+                conn.close();
+            }
+        });
     });
 
     peer.on('call', function (call) {
+        // Check if room is full
+        if (currentCall) {
+            const callerId = call.peer;
+            joinAttempts[callerId] = (joinAttempts[callerId] || 0) + 1;
+
+            if (joinAttempts[callerId] > 5) {
+                showToast("Someone is trying to join the meeting...");
+            }
+
+            // Reject the call
+            const conn = peer.connect(callerId);
+            conn.on('open', function () {
+                conn.send({ type: 'REJECT', reason: 'ROOM_FULL' });
+                setTimeout(() => {
+                    conn.close();
+                    call.close();
+                }, 500);
+            });
+            return;
+        }
+
         // Show custom modal instead of confirm
         const modal = document.getElementById("incoming-call-modal");
         const acceptBtn = document.getElementById("btn-accept-call");
@@ -785,7 +824,16 @@ function initPeer() {
 
     peer.on('error', function (err) {
         console.error(err);
-        alert("PeerJS Error: " + err.type);
+        if (err.type === 'peer-unavailable') {
+            showToast("Peer not available or code inactive");
+        } else if (err.type === 'unavailable-id') {
+            // If saved ID is unavailable, clear it and retry
+            sessionStorage.removeItem('lofi_peer_id');
+            peer.destroy();
+            initPeer();
+        } else {
+            alert("PeerJS Error: " + err.type);
+        }
     });
 }
 
@@ -823,6 +871,11 @@ function connectToPeer() {
 
     if (!peer) {
         alert("PeerJS not initialized. Try reopening the popup.");
+        return;
+    }
+
+    if (currentCall) {
+        showToast("You need to leave the current meeting to join another.");
         return;
     }
 
@@ -953,6 +1006,12 @@ function endCallUI(isRemote) {
     // Reset Buttons to "OFF" state (visually) since stream is stopped
     document.getElementById("btn-toggle-audio").classList.add("active");
     document.getElementById("btn-toggle-video").classList.add("active");
+
+    // Destroy Peer connection so host appears unavailable
+    if (peer) {
+        peer.destroy();
+        peer = null;
+    }
 }
 
 function resetVideoUI() {
@@ -967,6 +1026,11 @@ function resetVideoUI() {
 
     // Restart Local Video for next call
     startLocalVideo();
+
+    // Re-initialize Peer connection
+    if (!peer) {
+        initPeer();
+    }
 }
 
 function shareOnTwitter() {
