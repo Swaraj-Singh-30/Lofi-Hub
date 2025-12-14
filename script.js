@@ -882,6 +882,19 @@ function handleCallStream(call) {
                 }
             });
         }
+
+        // Handle remote track mute/unmute (Camera toggle) to avoid frozen frames
+        const videoTrack = remoteStream.getVideoTracks()[0];
+        if (videoTrack) {
+            videoTrack.onmute = function () {
+                console.log("Remote video muted");
+                remoteVideo.style.opacity = "0"; // Hide video to show placeholder
+            };
+            videoTrack.onunmute = function () {
+                console.log("Remote video unmuted");
+                remoteVideo.style.opacity = "1"; // Show video
+            };
+        }
     });
 
     call.on('close', function () {
@@ -977,11 +990,19 @@ function toggleVideo() {
     const videoTrack = localStream.getVideoTracks().find(t => t.readyState === 'live');
 
     if (videoTrack && videoTrack.enabled) {
-        // Turn OFF: Stop the track to turn off the camera light
-        videoTrack.stop();
+        // Turn OFF: Stop the track and signal peer
         videoTrack.enabled = false;
+        videoTrack.stop();
         localStream.removeTrack(videoTrack);
         btn.classList.add("active");
+
+        // Signal remote peer that video is gone
+        if (currentCall && currentCall.peerConnection) {
+            const sender = currentCall.peerConnection.getSenders().find(s => s.track && s.track.kind === 'video');
+            if (sender) {
+                sender.replaceTrack(null);
+            }
+        }
     } else {
         // Turn ON: Request a new video stream
         btn.disabled = true; // Prevent double-clicks
@@ -992,7 +1013,7 @@ function toggleVideo() {
 
             // If in a call, replace the track
             if (currentCall && currentCall.peerConnection) {
-                const sender = currentCall.peerConnection.getSenders().find(s => s.track && s.track.kind === 'video');
+                const sender = currentCall.peerConnection.getSenders().find(s => s.track === null || s.track.kind === 'video');
                 if (sender) {
                     sender.replaceTrack(newVideoTrack);
                 }
