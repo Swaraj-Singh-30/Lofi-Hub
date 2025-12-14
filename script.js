@@ -728,7 +728,14 @@ function toggleVideoCall() {
 }
 
 function initPeer() {
-    peer = new Peer(); // Create a new PeerJS instance
+    peer = new Peer({
+        config: {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' }
+            ]
+        }
+    }); // Create a new PeerJS instance with STUN servers
 
     peer.on('open', function (id) {
         document.getElementById("my-peer-id").innerText = id;
@@ -849,8 +856,14 @@ function connectToPeer() {
 
 function handleCallStream(call) {
     call.on('stream', function (remoteStream) {
-        document.getElementById("remote-video").srcObject = remoteStream;
+        const remoteVideo = document.getElementById("remote-video");
+        remoteVideo.srcObject = remoteStream;
         document.getElementById("call-status").innerText = "Connected";
+
+        // Explicitly play video for mobile compatibility
+        remoteVideo.play().catch(e => {
+            console.error("Error playing remote video:", e);
+        });
     });
 
     call.on('close', function () {
