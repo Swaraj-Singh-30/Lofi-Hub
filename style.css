@@ -929,9 +929,13 @@ header {
 
 /* Video Call Popup Styling - Google Meet Style */
 #video-call-btn {
-    font-size: 20px;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     transition: transform 0.2s;
+}
+
+#video-call-btn img {
+    width: 36px;
+    height: 24px;
 }
 
 #video-call-btn:hover {
