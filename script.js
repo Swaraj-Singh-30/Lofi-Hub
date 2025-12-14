@@ -697,6 +697,7 @@ document.addEventListener("keydown", function (e) {
 let peer = null;
 let localStream = null;
 let currentCall = null;
+let isExplicitHangup = false;
 
 function toggleVideoCall() {
     const videoPopup = document.getElementById("video-call-popup");
@@ -898,21 +899,24 @@ function handleCallStream(call) {
     });
 
     call.on('close', function () {
-        endCallUI();
+        if (!isExplicitHangup) {
+            endCallUI(true); // Remote hangup
+        }
     });
 
     call.on('error', function (err) {
         console.error(err);
-        endCallUI();
+        endCallUI(true); // Treat error as remote hangup/disconnect
     });
 }
 
 function endCall() {
+    isExplicitHangup = true; // Mark as local hangup
     if (currentCall) {
         currentCall.close();
     }
     // stopLocalStream(); // Moved to endCallUI to handle remote hangup too
-    endCallUI();
+    endCallUI(false); // Local hangup
 }
 
 function stopLocalStream() {
@@ -926,7 +930,7 @@ function stopLocalStream() {
     }
 }
 
-function endCallUI() {
+function endCallUI(isRemote) {
     currentCall = null;
     document.getElementById("remote-video").srcObject = null;
     document.getElementById("call-status").innerText = "Call Ended / Ready";
@@ -935,7 +939,19 @@ function endCallUI() {
     stopLocalStream();
 
     // Show End Screen
-    document.getElementById("call-ended-screen").style.display = "flex";
+    const endScreen = document.getElementById("call-ended-screen");
+    const endTitle = endScreen.querySelector("h2");
+    const endMsg = endScreen.querySelector("p");
+
+    if (isRemote) {
+        endTitle.innerText = "Peer Left";
+        endMsg.innerText = "The peer has left the meeting.";
+    } else {
+        endTitle.innerText = "Call Ended";
+        endMsg.innerText = "Hope you had a productive session! 🚀";
+    }
+
+    endScreen.style.display = "flex";
 
     // Hide Video Grid & Controls
     document.querySelector(".video-grid").style.display = "none";
@@ -948,6 +964,7 @@ function endCallUI() {
 }
 
 function resetVideoUI() {
+    isExplicitHangup = false; // Reset flag
     // Hide End Screen
     document.getElementById("call-ended-screen").style.display = "none";
 
