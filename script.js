@@ -460,9 +460,6 @@ window.addEventListener("orientationchange", showRandomGif);
 // Run on page load
 window.addEventListener("load", showRandomGif);
 
-// // Optional: change GIF if window is resized
-// window.addEventListener("resize", showRandomGif);
-
 // Play Pause Functionality
 let playerState = "playing";
 const playerImg = document.getElementById("pause-btn");
@@ -633,7 +630,6 @@ function openAbout() {
 }
 
 // Shortcut keys functionality
-//Changing GIF
 // Single keydown listener that ignores typing in inputs/textareas/contenteditables
 function isTypingTarget(el) {
     if (!el) return false;
@@ -708,9 +704,6 @@ function toggleVideoCall() {
     if (videoPopup.style.display === "none" || videoPopup.style.display === "") {
         videoPopup.style.display = "block";
         // Don't close other popups to allow multitasking
-        // if (aboutPopup) aboutPopup.style.display = "none";
-        // if (pomodoroClock) pomodoroClock.style.display = "none";
-        // if (todoList) todoList.style.display = "none";
 
         // Initialize PeerJS and stream if not already done
         if (!peer) {
@@ -721,7 +714,7 @@ function toggleVideoCall() {
         }
     } else {
         videoPopup.style.display = "none";
-        // Only stop the camera if NOT in a call
+        // Only stop the camera if NOT in a call!!
         if (!currentCall) {
             stopLocalStream();
         }
@@ -755,7 +748,7 @@ function initPeer() {
 
         modal.style.display = "flex";
 
-        // Handle Accept
+        //Handle Accept 
         acceptBtn.onclick = function () {
             modal.style.display = "none";
             if (localStream) {
@@ -824,7 +817,7 @@ function connectToPeer() {
     }
 
     if (remoteId === myId) {
-        showToast("You can't call yourself, that's lonely! 🥺");
+        showToast("You can't call yourself, that's lonely! 🥺"); //LOL!!!
         return;
     }
 
@@ -915,7 +908,6 @@ function endCall() {
     if (currentCall) {
         currentCall.close();
     }
-    // stopLocalStream(); // Moved to endCallUI to handle remote hangup too
     endCallUI(false); // Local hangup
 }
 
@@ -1070,7 +1062,3 @@ function showToast(message) {
         }, 3000);
     }
 }
-
-// Hide video popup when clicking outside
-// Hide video popup when clicking outside - REMOVED to prevent accidental closing
-// document.addEventListener('click', function (e) { ... });
