@@ -732,10 +732,14 @@ function initPeer() {
         config: {
             iceServers: [
                 { urls: 'stun:stun.l.google.com:19302' },
-                { urls: 'stun:stun1.l.google.com:19302' }
+                { urls: 'stun:stun1.l.google.com:19302' },
+                { urls: 'stun:stun2.l.google.com:19302' },
+                { urls: 'stun:stun3.l.google.com:19302' },
+                { urls: 'stun:stun4.l.google.com:19302' },
+                { urls: 'stun:global.stun.twilio.com:3478' }
             ]
         }
-    }); // Create a new PeerJS instance with STUN servers
+    }); // Create a new PeerJS instance with expanded STUN servers
 
     peer.on('open', function (id) {
         document.getElementById("my-peer-id").innerText = id;
@@ -857,13 +861,27 @@ function connectToPeer() {
 function handleCallStream(call) {
     call.on('stream', function (remoteStream) {
         const remoteVideo = document.getElementById("remote-video");
+
+        // Prevent re-assigning the same stream which causes AbortError
+        if (remoteVideo.srcObject === remoteStream) {
+            return;
+        }
+
         remoteVideo.srcObject = remoteStream;
         document.getElementById("call-status").innerText = "Connected";
 
         // Explicitly play video for mobile compatibility
-        remoteVideo.play().catch(e => {
-            console.error("Error playing remote video:", e);
-        });
+        const playPromise = remoteVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(e => {
+                if (e.name === 'AbortError') {
+                    // Ignore AbortError as it means the video is loading/playing
+                    console.log("Video play aborted (likely due to new stream load)");
+                } else {
+                    console.error("Error playing remote video:", e);
+                }
+            });
+        }
     });
 
     call.on('close', function () {
