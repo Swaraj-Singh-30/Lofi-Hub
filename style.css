@@ -1357,8 +1357,10 @@ header {
     color: #fff;
     padding: 12px 24px;
     border-radius: 50px;
-    box-shadow: 0 4px 12px rgba(234, 67, 53, 0.4); /* Reddish shadow */
-    font-size: 1.1rem; /* Increased font size */
+    box-shadow: 0 4px 12px rgba(234, 67, 53, 0.4);
+    /* Reddish shadow */
+    font-size: 1.1rem;
+    /* Increased font size */
     opacity: 0;
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     z-index: 10020;
@@ -1507,4 +1509,110 @@ header {
     /* Above placeholder */
     background: #000;
     /* Black background behind video */
+}
+
+/* Generate Code Button */
+.generate-btn {
+    background: #ffb86c;
+    color: #222;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.generate-btn:hover {
+    background: #ffd6a0;
+}
+
+/* Share Modal Styling */
+.share-content {
+    width: 400px;
+    max-width: 90%;
+}
+
+.share-code-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#share-peer-id {
+    font-family: 'Fira Code', monospace;
+    color: #ffb86c;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.share-code-box button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.share-code-box button:hover {
+    opacity: 1;
+}
+
+.share-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: #fff;
+    transition: transform 0.2s;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+}
+
+.share-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.share-btn.whatsapp {
+    background: #25D366;
+}
+
+.share-btn.gmail {
+    background: #EA4335;
+}
+
+.close-modal-text {
+    background: none;
+    border: none;
+    color: #aaa;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.close-modal-text:hover {
+    color: #fff;
 }

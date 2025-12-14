@@ -695,6 +695,7 @@ let localStream = null;
 let currentCall = null;
 let isExplicitHangup = false;
 let joinAttempts = {};
+let isGuest = false;
 
 function toggleVideoCall() {
     const videoPopup = document.getElementById("video-call-popup");
@@ -745,20 +746,38 @@ function initPeer() {
 
     peer.on('open', function (id) {
         document.getElementById("my-peer-id").innerText = id;
+        document.getElementById("share-peer-id").innerText = id; // Set for share modal
         document.getElementById("call-status").innerText = "Ready to connect";
         sessionStorage.setItem('lofi_peer_id', id);
     });
 
     peer.on('connection', function (conn) {
         conn.on('data', function (data) {
-            if (data && data.type === 'REJECT' && data.reason === 'ROOM_FULL') {
-                showToast("Meeting is full. Only 2 participants allowed.");
+            if (data && data.type === 'REJECT') {
+                if (data.reason === 'ROOM_FULL') {
+                    showToast("Meeting is full. Only 2 participants allowed.");
+                } else if (data.reason === 'INVALID_CODE') {
+                    showToast("Code is invalid or does not exist.");
+                }
                 conn.close();
             }
         });
     });
 
     peer.on('call', function (call) {
+        // If I am a guest, I cannot accept calls (my code is invalid)
+        if (isGuest) {
+            const conn = peer.connect(call.peer);
+            conn.on('open', function () {
+                conn.send({ type: 'REJECT', reason: 'INVALID_CODE' });
+                setTimeout(() => {
+                    conn.close();
+                    call.close();
+                }, 500);
+            });
+            return;
+        }
+
         // Check if room is full
         if (currentCall) {
             const callerId = call.peer;
@@ -1126,3 +1145,68 @@ function showToast(message) {
         }, 3000);
     }
 }
+
+// Generate Code Functionality
+function generateCode() {
+    if (currentCall) {
+        showToast("You will have to leave the meet to create a code");
+        return;
+    }
+
+    const btn = document.getElementById("btn-generate-code");
+    const container = document.getElementById("code-container");
+    const shareModal = document.getElementById("share-modal");
+
+    btn.style.display = "none";
+    container.style.display = "flex";
+
+    // Open Share Modal
+    shareModal.style.display = "flex";
+}
+
+function closeShareModal() {
+    document.getElementById("share-modal").style.display = "none";
+}
+
+function shareViaWhatsApp() {
+    const id = document.getElementById("my-peer-id").innerText;
+    const text = encodeURIComponent(`Join me on Lofi Hub! My code is: ${id}`);
+    window.open(`https://wa.me/?text=${text}`, "_blank");
+}
+
+function shareViaGmail() {
+    const id = document.getElementById("my-peer-id").innerText;
+    const subject = encodeURIComponent("Join me on Lofi Hub");
+    const body = encodeURIComponent(`Hey! Join me on Lofi Hub to study together. My code is: ${id}`);
+    window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
+}
+
+// Helper to reset Code UI
+function resetCodeUI() {
+    const btn = document.getElementById("btn-generate-code");
+    const container = document.getElementById("code-container");
+    const shareModal = document.getElementById("share-modal");
+
+    btn.style.display = "block";
+    container.style.display = "none";
+    shareModal.style.display = "none";
+}
+
+// Update connectToPeer to set isGuest and reset UI
+const _originalConnectToPeer = connectToPeer;
+connectToPeer = function () {
+    // Disable button to prevent double-clicks
+    const joinBtn = document.querySelector('.join-input-group button');
+    if (joinBtn) joinBtn.disabled = true;
+
+    isGuest = true;
+    resetCodeUI();
+
+    // Re-enable button after a short delay (or let the original function handle flow)
+    // We re-enable it in case of validation failure in _originalConnectToPeer
+    setTimeout(() => {
+        if (joinBtn) joinBtn.disabled = false;
+    }, 2000);
+
+    _originalConnectToPeer();
+};
